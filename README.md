@@ -107,6 +107,20 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 - Swagger UI
 - swagger-jsdoc
 
+## Swagger API Documentation
+
+Interactive API documentation is available through Swagger UI.
+
+Swagger allows you to:
+
+- View all available endpoints
+- Test API requests
+- Send JWT authentication tokens
+- Explore request and response schemas
+
+
+![Swagger UI](docs/swagger-ui.png)
+
 ---
 
 # Architecture
