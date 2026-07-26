@@ -151,7 +151,52 @@ Run tests:
 ```bash
 npm test
 ```
+## API Endpoints
 
+### Authentication
+
+| Method | Endpoint | Description | Authentication |
+|---|---|---|---|
+| POST | `/api/auth/register` | Register a new user | Public |
+| POST | `/api/auth/login` | Login user and receive JWT token | Public |
+
+---
+
+### Tasks
+
+| Method | Endpoint | Description | Authentication |
+|---|---|---|---|
+| POST | `/api/tasks` | Create a new task | Required |
+| GET | `/api/tasks` | Get authenticated user's tasks | Required |
+| GET | `/api/tasks/:id` | Get a single task by ID | Required |
+| PATCH | `/api/tasks/:id` | Update a task | Required |
+| DELETE | `/api/tasks/:id` | Delete a task | Required |
+
+---
+
+### Request Flow
+
+All protected task routes require a valid JWT token:
+
+```
+Client Request
+      |
+      ↓
+Authentication Middleware
+      |
+      ↓
+Controller
+      |
+      ↓
+Service Layer
+      |
+      ↓
+Repository Layer
+      |
+      ↓
+MongoDB
+
+```
 ## API Testing
 
 The project uses:
