@@ -36,20 +36,24 @@ class TaskRepository {
                 return tasks;
 
     }
+
+
+    
     async update(
         id: string,
         data: Partial<ITask>
     ) {
 
+
         const task = await Task.findByIdAndUpdate(
             id,
             data,
             {
-            returnDocument:"after"
-            }
+            returnDocument: "after"
+        },
+                     
         );
-
-
+        
         return task;
 
     }
