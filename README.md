@@ -1,5 +1,15 @@
 # Task Management System
 
+# Task Management System
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![Express](https://img.shields.io/badge/Express.js-API-black)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Swagger](https://img.shields.io/badge/Docs-Swagger-brightgreen)
+![Tests](https://img.shields.io/badge/Tests-Jest-red) 
+
 A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, and Supertest** following a scalable layered backend architecture.
 
 ---
