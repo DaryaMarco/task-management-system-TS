@@ -120,6 +120,7 @@ Swagger allows you to:
 
 
 ![Swagger UI](docs/swagger-ui.png)
+![Swagger UI](docs/swagger-AUTH-ui.png)
 
 ---
 
