@@ -1,58 +1,106 @@
 # Task Management System
 
-A production-ready task management API built with TypeScript, Express, MongoDB, JWT authentication, testing, and scalable backend architecture.
+A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, and Supertest** following a scalable layered backend architecture.
+
+---
 
 ## Overview
 
-Task Management System is a backend application designed to manage tasks efficiently with secure authentication and a clean layered architecture.
+Task Management System is a backend application designed to manage user tasks securely and efficiently.
 
-The project follows professional backend development practices including separation of concerns, repository pattern, service layer architecture, validation, centralized error handling, and automated testing.
+The project follows professional backend development practices including:
 
-## Features
-
-- User registration and authentication
-- Secure password hashing with bcrypt
-- JWT-based authentication
-- Create, read, update, and delete tasks
-- User-based task ownership
-- Task status management
-- Task priority management
+- Layered architecture
+- Repository Pattern
+- Service Layer Pattern
+- JWT authentication
 - Request validation
 - Centralized error handling
-- Repository Pattern architecture
-- Service Layer architecture
+- API documentation with Swagger
 - Automated API testing
 
-## Tech Stack
+The goal of this project is to demonstrate a scalable and maintainable backend structure suitable for real-world applications.
 
-### Backend
+---
+
+# Features
+
+## Authentication
+
+- User registration
+- User login
+- JWT-based authentication
+- Secure password hashing with bcrypt
+
+## Task Management
+
+- Create tasks
+- Get authenticated user's tasks
+- Get task by ID
+- Update tasks
+- Delete tasks
+- Task ownership management
+- Task status management
+- Task priority management
+
+## Backend Features
+
+- TypeScript implementation
+- Express.js REST API
+- MongoDB database integration
+- Mongoose ODM
+- Repository Pattern
+- Service Layer Architecture
+- Joi request validation
+- Centralized error handling
+- Authentication middleware
+
+## Documentation & Testing
+
+- Swagger API Documentation
+- Jest testing framework
+- Supertest API testing
+- MongoDB Memory Server for isolated tests
+
+---
+
+# Tech Stack
+
+## Backend
 
 - Node.js
 - Express.js
 - TypeScript
 
-### Database
+## Database
 
 - MongoDB
 - Mongoose
 
-### Authentication & Security
+## Authentication & Security
 
-- JWT (JSON Web Token)
+- JSON Web Token (JWT)
 - bcryptjs
 - Authentication Middleware
 
-### Validation
+## Validation
 
 - Joi
 
-### Testing
+## Testing
 
 - Jest
 - Supertest
 - MongoDB Memory Server
 
-## Architecture
+## Documentation
+
+- Swagger UI
+- swagger-jsdoc
+
+---
+
+# Architecture
 
 The project follows a layered backend architecture:
 
@@ -78,12 +126,20 @@ Model
 MongoDB
 ```
 
-This architecture improves scalability, maintainability, and testability.
+This architecture provides:
 
-## Project Structure
+- Better separation of concerns
+- Easier maintenance
+- Improved scalability
+- Better testability
+
+---
+
+# Project Structure
 
 ```
 task-management-system-TS
+
 │
 ├── client
 │
@@ -92,12 +148,14 @@ task-management-system-TS
 └── server
     │
     ├── src
+    │   │
     │   ├── controllers
     │   ├── services
     │   ├── repositories
     │   ├── models
     │   ├── routes
     │   ├── middleware
+    │   ├── validators
     │   ├── interfaces
     │   └── server.ts
     │
@@ -108,7 +166,9 @@ task-management-system-TS
     └── tsconfig.json
 ```
 
-## Installation
+---
+
+# Installation
 
 Clone the repository:
 
@@ -116,7 +176,7 @@ Clone the repository:
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
 ```
 
-Navigate to server directory:
+Navigate into the backend folder:
 
 ```bash
 cd server
@@ -128,92 +188,162 @@ Install dependencies:
 npm install
 ```
 
-## Environment Variables
+---
 
-Create a `.env` file inside the server directory:
+# Environment Variables
+
+Create a `.env` file inside the `server` directory:
 
 ```env
 PORT=5000
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_secret_key
 ```
 
-## Running the Project
+---
 
-Start development server:
+# Running the Project
+
+## Development Mode
 
 ```bash
 npm run dev
 ```
+
+The server will run on:
+
+```
+http://localhost:5000
+```
+
+---
+
+# API Documentation
+
+Swagger UI is available at:
+
+```
+http://localhost:5000/api-docs
+```
+
+Swagger allows you to:
+
+- View all available endpoints
+- Test API requests
+- Send JWT tokens
+- Explore request and response schemas
+
+---
+
+# API Endpoints
+
+## Authentication
+
+| Method | Endpoint | Description | Authentication |
+|---|---|---|---|
+| POST | `/api/auth/register` | Register new user | Public |
+| POST | `/api/auth/login` | Login user and receive JWT token | Public |
+
+---
+
+## Tasks
+
+| Method | Endpoint | Description | Authentication |
+|---|---|---|---|
+| POST | `/api/tasks` | Create a task | Required |
+| GET | `/api/tasks` | Get user's tasks | Required |
+| GET | `/api/tasks/:id` | Get task by ID | Required |
+| PATCH | `/api/tasks/:id` | Update task | Required |
+| DELETE | `/api/tasks/:id` | Delete task | Required |
+
+---
+
+# Authentication Flow
+
+Protected routes require a valid JWT token.
+
+Request flow:
+
+```
+Client Request
+
+      ↓
+
+Authentication Middleware
+
+      ↓
+
+Controller
+
+      ↓
+
+Service Layer
+
+      ↓
+
+Repository Layer
+
+      ↓
+
+MongoDB
+```
+
+---
+
+# API Testing
+
+The project includes automated tests using:
+
+- Jest
+- Supertest
+- MongoDB Memory Server
+
+Tests cover:
+
+- User registration
+- User login
+- Task creation
+- Task retrieval
+- Task updating
+- Task deletion
 
 Run tests:
 
 ```bash
 npm test
 ```
-## API Endpoints
-
-### Authentication
-
-| Method | Endpoint | Description | Authentication |
-|---|---|---|---|
-| POST | `/api/auth/register` | Register a new user | Public |
-| POST | `/api/auth/login` | Login user and receive JWT token | Public |
 
 ---
 
-### Tasks
+# Security Features
 
-| Method | Endpoint | Description | Authentication |
-|---|---|---|---|
-| POST | `/api/tasks` | Create a new task | Required |
-| GET | `/api/tasks` | Get authenticated user's tasks | Required |
-| GET | `/api/tasks/:id` | Get a single task by ID | Required |
-| PATCH | `/api/tasks/:id` | Update a task | Required |
-| DELETE | `/api/tasks/:id` | Delete a task | Required |
+The application includes:
+
+- Password hashing with bcrypt
+- JWT authentication
+- Protected API routes
+- Request validation
+- Centralized error handling
+- Secure authentication workflow
 
 ---
 
-### Request Flow
+# Future Improvements
 
-All protected task routes require a valid JWT token:
-
-```
-Client Request
-      |
-      ↓
-Authentication Middleware
-      |
-      ↓
-Controller
-      |
-      ↓
-Service Layer
-      |
-      ↓
-Repository Layer
-      |
-      ↓
-MongoDB
-
-```
-## API Testing
-
-The project uses:
-
-- Jest for testing framework
-- Supertest for API requests
-- MongoDB Memory Server for isolated database testing
-
-## Future Improvements
+Planned improvements:
 
 - Docker containerization
 - CI/CD pipeline with GitHub Actions
 - Cloud deployment
 - React frontend application
-- Advanced authorization system
-- API rate limiting improvements
+- Advanced authorization roles
+- Pagination and filtering
+- Task due dates and reminders
 
-## Author
+---
 
-Developed by Darya
+# Author
+
+Developed by **Darya**
