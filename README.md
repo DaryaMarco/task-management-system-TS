@@ -135,58 +135,29 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 
 ---
 
-# Swagger API Documentation
-
-Interactive API documentation is available through Swagger UI.
-
-Swagger allows you to:
-
-- View all available endpoints
-- Test API requests
-- Send JWT authentication tokens
-- Explore request and response schemas
-
-
-Swagger UI:
-
-```
-http://localhost:5000/api-docs
-```
-
-
-Screenshots:
-
-![Swagger UI](docs/swagger-ui.png)
-
-![Swagger AUTH UI](docs/swagger-AUTH-ui.png)
-
----
-
 # Architecture
 
 The project follows a layered backend architecture:
 
-```
 Request
-   |
-   ↓
+|
+↓
 Route
-   |
-   ↓
+|
+↓
 Controller
-   |
-   ↓
+|
+↓
 Service
-   |
-   ↓
+|
+↓
 Repository
-   |
-   ↓
+|
+↓
 Model
-   |
-   ↓
+|
+↓
 MongoDB
-```
 
 This architecture provides:
 
@@ -198,37 +169,30 @@ This architecture provides:
 ---
 
 # Project Structure
-
-```
 task-management-system-TS
 
 │
-├── client
-│
-├── docs
-│
 └── server
-    │
-    ├── src
-    │   │
-    │   ├── controllers
-    │   ├── services
-    │   ├── repositories
-    │   ├── models
-    │   ├── routes
-    │   ├── middleware
-    │   ├── validators
-    │   ├── interfaces
-    │   └── server.ts
-    │
-    ├── tests
-    │
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── package.json
-    ├── package-lock.json
-    └── tsconfig.json
-```
+│
+├── src
+│ │
+│ ├── controllers
+│ ├── services
+│ ├── repositories
+│ ├── models
+│ ├── routes
+│ ├── middleware
+│ ├── validators
+│ ├── interfaces
+│ └── server.ts
+│
+├── tests
+│
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+├── package-lock.json
+└── tsconfig.json
 
 ---
 
@@ -238,307 +202,63 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
-```
 
 Navigate into backend folder:
-
 ```bash
 cd server
-```
-
 Install dependencies:
-
 ```bash
 npm install
-```
 
----
+Environment Variables
 
-# Environment Variables
+Create a .env file inside the server directory:
 
-Create a `.env` file inside the `server` directory:
-
-```env
 PORT=5000
 
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=mongodb://localhost:27017/task-management
 
 JWT_SECRET=your_secret_key
-```
 
----
-
-# Running the Project
-
-## Development Mode
-
-```bash
+Running the Project
+Development Mode
+---bash
 npm run dev
-```
-
-The server will run on:
-
-```
+Server:
 http://localhost:5000
-```
 
----
+Swagger API Documentation
 
-# Docker Setup
+Interactive API documentation is available through Swagger UI.
 
-The project is fully containerized using Docker and Docker Compose.
+Swagger URL:
 
-Docker runs:
-
-- Node.js API container
-- MongoDB container
-- Internal Docker network
-- Persistent database storage
-- Health monitoring
-
-
-## Requirements
-
-Install:
-
-- Docker
-- Docker Compose
-
-
-## Start Application with Docker
-
-Navigate to server folder:
-
-```bash
-cd server
-```
-
-
-Build and run containers:
-
-```bash
-docker compose up --build
-```
-
-
-Application will be available at:
-
-```
-http://localhost:5000
-```
-
-
----
-
-## Docker Services
-
-| Service | Container | Port |
-|---|---|---|
-| API | task-management-api | 5000 |
-| MongoDB | task-management-mongodb | 27017 |
-
-
----
-
-## Health Checks
-
-API health endpoint:
-
-```
-GET /health
-```
-
-
-Example response:
-
-```json
-{
-  "status": "OK",
-  "message": "API is running",
-  "timestamp": "2026-07-28T18:55:28.412Z"
-}
-```
-
-
-Docker automatically checks:
-
-```
-http://localhost:5000/health
-```
-
-
-MongoDB health:
-
-```
-db.adminCommand('ping')
-```
-
-
----
-
-## Docker Commands
-
-Stop containers:
-
-```bash
-docker compose down
-```
-
-
-Remove containers and database volume:
-
-```bash
-docker compose down -v
-```
-
-
-View running containers:
-
-```bash
-docker ps
-```
-
-
-View logs:
-
-```bash
-docker compose logs -f
-```
-
-
-Rebuild:
-
-```bash
-docker compose up --build
-```
-
----
-
-# API Documentation
-
-Swagger UI:
-
-```
 http://localhost:5000/api-docs
-```
 
 Swagger allows you to:
 
-- View endpoints
-- Test requests
-- Send JWT tokens
-- Explore schemas
+View all endpoints
+Test API requests
+Send JWT authentication tokens
+Explore schemas
 
----
+Docker Setup
 
-# API Endpoints
+The application is fully containerized using Docker and Docker Compose.
 
-## Authentication
+Docker runs:
 
-| Method | Endpoint | Description | Authentication |
-|---|---|---|---|
-| POST | `/api/auth/register` | Register new user | Public |
-| POST | `/api/auth/login` | Login user and receive JWT token | Public |
+Node.js API container
+MongoDB container
+Internal Docker network
+Persistent database storage
+Health monitoring
+Requirements
 
----
+Install:
 
-## Tasks
+Docker
+Docker Compose
+Start Application with Docker
 
-| Method | Endpoint | Description | Authentication |
-|---|---|---|---|
-| POST | `/api/tasks` | Create a task | Required |
-| GET | `/api/tasks` | Get user's tasks | Required |
-| GET | `/api/tasks/:id` | Get task by ID | Required |
-| PATCH | `/api/tasks/:id` | Update task | Required |
-| DELETE | `/api/tasks/:id` | Delete task | Required |
-
----
-
-# Authentication Flow
-
-Protected routes require a valid JWT token.
-
-```
-Client Request
-
-      ↓
-
-Authentication Middleware
-
-      ↓
-
-Controller
-
-      ↓
-
-Service Layer
-
-      ↓
-
-Repository Layer
-
-      ↓
-
-MongoDB
-```
-
----
-
-# API Testing
-
-The project includes automated tests using:
-
-- Jest
-- Supertest
-- MongoDB Memory Server
-
-
-Tests cover:
-
-- User registration
-- User login
-- Task creation
-- Task retrieval
-- Task updating
-- Task deletion
-
-
-Run tests:
-
-```bash
-npm test
-```
-
----
-
-# Security Features
-
-The application includes:
-
-- Password hashing with bcrypt
-- JWT authentication
-- Protected API routes
-- Request validation
-- Centralized error handling
-- Secure authentication workflow
-
----
-
-# Future Improvements
-
-Planned improvements:
-
-- GitHub Actions CI/CD pipeline
-- Cloud deployment
-- React frontend application
-- Advanced authorization roles
-- Pagination and filtering
-- Task due dates and reminders
-- Redis caching
-- Logging and monitoring improvements
-
----
-
-# Author
-
-Developed by **Darya**
+Navigate into server folder:
