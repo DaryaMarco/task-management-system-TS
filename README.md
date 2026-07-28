@@ -1,4 +1,3 @@
-
 # Task Management System
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
@@ -7,13 +6,14 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
 ![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 ![Swagger](https://img.shields.io/badge/Docs-Swagger-brightgreen)
-![Tests](https://img.shields.io/badge/Tests-Jest-red) 
+![Tests](https://img.shields.io/badge/Tests-Jest-red)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
 
-A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, and Supertest** following a scalable layered backend architecture.
+A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, Supertest, and Docker** following a scalable layered backend architecture.
 
 ---
 
-## Overview
+# Overview
 
 Task Management System is a backend application designed to manage user tasks securely and efficiently.
 
@@ -27,8 +27,10 @@ The project follows professional backend development practices including:
 - Centralized error handling
 - API documentation with Swagger
 - Automated API testing
+- Docker containerization
+- Health monitoring
 
-The goal of this project is to demonstrate a scalable and maintainable backend structure suitable for real-world applications.
+The goal of this project is to demonstrate a scalable, maintainable, and production-oriented backend structure suitable for real-world applications.
 
 ---
 
@@ -41,6 +43,8 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 - JWT-based authentication
 - Secure password hashing with bcrypt
 
+---
+
 ## Task Management
 
 - Create tasks
@@ -51,6 +55,8 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 - Task ownership management
 - Task status management
 - Task priority management
+
+---
 
 ## Backend Features
 
@@ -64,12 +70,27 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 - Centralized error handling
 - Authentication middleware
 
+---
+
 ## Documentation & Testing
 
 - Swagger API Documentation
 - Jest testing framework
 - Supertest API testing
 - MongoDB Memory Server for isolated tests
+
+---
+
+## Docker Features
+
+- Dockerized backend application
+- Docker Compose orchestration
+- MongoDB container
+- Persistent MongoDB volume
+- Custom Docker network
+- API healthcheck
+- MongoDB healthcheck
+- Automatic container restart policy
 
 ---
 
@@ -107,7 +128,14 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 - Swagger UI
 - swagger-jsdoc
 
-## Swagger API Documentation
+## DevOps
+
+- Docker
+- Docker Compose
+
+---
+
+# Swagger API Documentation
 
 Interactive API documentation is available through Swagger UI.
 
@@ -119,8 +147,18 @@ Swagger allows you to:
 - Explore request and response schemas
 
 
+Swagger UI:
+
+```
+http://localhost:5000/api-docs
+```
+
+
+Screenshots:
+
 ![Swagger UI](docs/swagger-ui.png)
-![Swagger UI](docs/swagger-AUTH-ui.png)
+
+![Swagger AUTH UI](docs/swagger-AUTH-ui.png)
 
 ---
 
@@ -185,6 +223,8 @@ task-management-system-TS
     │
     ├── tests
     │
+    ├── Dockerfile
+    ├── docker-compose.yml
     ├── package.json
     ├── package-lock.json
     └── tsconfig.json
@@ -200,7 +240,7 @@ Clone the repository:
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
 ```
 
-Navigate into the backend folder:
+Navigate into backend folder:
 
 ```bash
 cd server
@@ -244,9 +284,139 @@ http://localhost:5000
 
 ---
 
+# Docker Setup
+
+The project is fully containerized using Docker and Docker Compose.
+
+Docker runs:
+
+- Node.js API container
+- MongoDB container
+- Internal Docker network
+- Persistent database storage
+- Health monitoring
+
+
+## Requirements
+
+Install:
+
+- Docker
+- Docker Compose
+
+
+## Start Application with Docker
+
+Navigate to server folder:
+
+```bash
+cd server
+```
+
+
+Build and run containers:
+
+```bash
+docker compose up --build
+```
+
+
+Application will be available at:
+
+```
+http://localhost:5000
+```
+
+
+---
+
+## Docker Services
+
+| Service | Container | Port |
+|---|---|---|
+| API | task-management-api | 5000 |
+| MongoDB | task-management-mongodb | 27017 |
+
+
+---
+
+## Health Checks
+
+API health endpoint:
+
+```
+GET /health
+```
+
+
+Example response:
+
+```json
+{
+  "status": "OK",
+  "message": "API is running",
+  "timestamp": "2026-07-28T18:55:28.412Z"
+}
+```
+
+
+Docker automatically checks:
+
+```
+http://localhost:5000/health
+```
+
+
+MongoDB health:
+
+```
+db.adminCommand('ping')
+```
+
+
+---
+
+## Docker Commands
+
+Stop containers:
+
+```bash
+docker compose down
+```
+
+
+Remove containers and database volume:
+
+```bash
+docker compose down -v
+```
+
+
+View running containers:
+
+```bash
+docker ps
+```
+
+
+View logs:
+
+```bash
+docker compose logs -f
+```
+
+
+Rebuild:
+
+```bash
+docker compose up --build
+```
+
+---
+
 # API Documentation
 
-Swagger UI is available at:
+Swagger UI:
 
 ```
 http://localhost:5000/api-docs
@@ -254,10 +424,10 @@ http://localhost:5000/api-docs
 
 Swagger allows you to:
 
-- View all available endpoints
-- Test API requests
+- View endpoints
+- Test requests
 - Send JWT tokens
-- Explore request and response schemas
+- Explore schemas
 
 ---
 
@@ -287,8 +457,6 @@ Swagger allows you to:
 # Authentication Flow
 
 Protected routes require a valid JWT token.
-
-Request flow:
 
 ```
 Client Request
@@ -324,6 +492,7 @@ The project includes automated tests using:
 - Supertest
 - MongoDB Memory Server
 
+
 Tests cover:
 
 - User registration
@@ -332,6 +501,7 @@ Tests cover:
 - Task retrieval
 - Task updating
 - Task deletion
+
 
 Run tests:
 
@@ -358,13 +528,14 @@ The application includes:
 
 Planned improvements:
 
-- Docker containerization
-- CI/CD pipeline with GitHub Actions
+- GitHub Actions CI/CD pipeline
 - Cloud deployment
 - React frontend application
 - Advanced authorization roles
 - Pagination and filtering
 - Task due dates and reminders
+- Redis caching
+- Logging and monitoring improvements
 
 ---
 
