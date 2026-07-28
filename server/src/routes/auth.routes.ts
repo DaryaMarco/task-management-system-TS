@@ -9,7 +9,7 @@ const router = Router();
  *   post:
  *     summary: Register a new user
  *     tags:
- *       - Authentication
+ *       - Auth
  *     requestBody:
  *       required: true
  *       content:
