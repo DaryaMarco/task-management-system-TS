@@ -1,4 +1,3 @@
-
 # Task Management System
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
@@ -8,10 +7,9 @@
 ![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 ![Swagger](https://img.shields.io/badge/Docs-Swagger-brightgreen)
 ![Tests](https://img.shields.io/badge/Tests-Jest-red)
-![Docker](https://img.shields.io/badge/Docker-Container-blue)
-![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-black)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
 
-A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, Supertest, Docker, and GitHub Actions** following a scalable layered backend architecture.
+A production-ready Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, Supertest, and Docker** following a scalable layered backend architecture.
 
 ---
 
@@ -21,18 +19,18 @@ Task Management System is a backend application designed to manage user tasks se
 
 The project follows professional backend development practices including:
 
-- Layered Architecture
+- Layered architecture
 - Repository Pattern
 - Service Layer Pattern
-- JWT Authentication
-- Request Validation
-- Centralized Error Handling
-- API Documentation with Swagger
-- Automated API Testing
-- Docker Containerization
-- CI/CD with GitHub Actions
+- JWT authentication
+- Request validation
+- Centralized error handling
+- API documentation with Swagger
+- Automated API testing
+- Docker containerization
+- Health monitoring
 
-The goal of this project is to demonstrate a scalable and maintainable backend structure suitable for real-world applications.
+The goal of this project is to demonstrate a scalable, maintainable, and production-oriented backend structure suitable for real-world applications.
 
 ---
 
@@ -83,6 +81,19 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 
 ---
 
+## Docker Features
+
+- Dockerized backend application
+- Docker Compose orchestration
+- MongoDB container
+- Persistent MongoDB volume
+- Custom Docker network
+- API healthcheck
+- MongoDB healthcheck
+- Automatic container restart policy
+
+---
+
 # Tech Stack
 
 ## Backend
@@ -121,24 +132,6 @@ The goal of this project is to demonstrate a scalable and maintainable backend s
 
 - Docker
 - Docker Compose
-- GitHub Actions
-
----
-
-# Swagger API Documentation
-
-Interactive API documentation is available through Swagger UI.
-
-Swagger allows you to:
-
-- View all available endpoints
-- Test API requests
-- Send JWT authentication tokens
-- Explore request and response schemas
-
-![Swagger UI](docs/swagger-ui.png)
-
-![Swagger AUTH UI](docs/swagger-AUTH-ui.png)
 
 ---
 
@@ -146,27 +139,27 @@ Swagger allows you to:
 
 The project follows a layered backend architecture:
 
-```text
+
 Request
-   │
-   ▼
+|
+↓
 Route
-   │
-   ▼
+|
+↓
 Controller
-   │
-   ▼
+|
+↓
 Service
-   │
-   ▼
+|
+↓
 Repository
-   │
-   ▼
+|
+↓
 Model
-   │
-   ▼
+|
+↓
 MongoDB
-```
+
 
 This architecture provides:
 
@@ -179,307 +172,271 @@ This architecture provides:
 
 # Project Structure
 
-```text
+
 task-management-system-TS
-│
-├── docs
+
 │
 └── server
-    │
-    ├── src
-    │   ├── controllers
-    │   ├── services
-    │   ├── repositories
-    │   ├── models
-    │   ├── routes
-    │   ├── middleware
-    │   ├── validators
-    │   ├── interfaces
-    │   └── server.ts
-    │
-    ├── tests
-    │
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── package.json
-    ├── package-lock.json
-    └── tsconfig.json
-```
+│
+├── src
+│ │
+│ ├── controllers
+│ ├── services
+│ ├── repositories
+│ ├── models
+│ ├── routes
+│ ├── middleware
+│ ├── validators
+│ ├── interfaces
+│ └── server.ts
+│
+├── tests
+│
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+├── package-lock.json
+└── tsconfig.json
+
 
 ---
 
 # Installation
 
-## Clone the repository
+Clone the repository:
 
-```bash
+```
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
-```
 
-## Navigate into the backend folder
+Navigate into backend folder:
 
-```bash
 cd server
-```
 
-## Install dependencies
+Install dependencies:
 
-```bash
 npm install
-```
+Environment Variables
 
----
+Create a .env file inside the server directory:
 
-# Environment Variables
-
-Create a `.env` file inside the `server` directory:
-
-```env
 PORT=5000
 
-MONGO_URI=mongodb://mongodb:27017/task-management
+MONGO_URI=mongodb://localhost:27017/task-management
 
 JWT_SECRET=your_secret_key
-```
-
----
-
-# Running the Project
-
-## Development Mode
-
-```bash
+Running the Project
+Development Mode
 npm run dev
-```
 
-Server runs on:
+Server:
 
-```text
 http://localhost:5000
-```
+Swagger API Documentation
 
----
+Interactive API documentation is available through Swagger UI.
 
-# Docker Setup
+Swagger URL:
 
-The project includes Docker support using Docker Compose.
+http://localhost:5000/api-docs
 
-Docker Compose starts:
+Swagger allows you to:
 
-- Node.js API container
-- MongoDB database container
-- Internal Docker network
-- MongoDB healthcheck
-- API healthcheck
+View all endpoints
+Test API requests
+Send JWT authentication tokens
+Explore schemas
+Docker Setup
 
-## Build and Run Containers
+The application is fully containerized using Docker and Docker Compose.
 
-From the `server` directory:
+Docker runs:
 
-```bash
+Node.js API container
+MongoDB container
+Internal Docker network
+Persistent database storage
+Health monitoring
+Requirements
+
+Install:
+
+Docker
+Docker Compose
+Start Application with Docker
+
+Navigate into server folder:
+
+cd server
+
+Build and run:
+
 docker compose up --build
-```
 
-After successful startup:
+Application:
 
-### API
-
-```text
 http://localhost:5000
-```
+Docker Services
+Service	Container	Port
+API	task-management-api	5000
+MongoDB	task-management-mongodb	27017
+Docker Compose Architecture
+                 Docker Network
 
-### Health Check
+                       |
+                       |
 
-```text
-http://localhost:5000/health
-```
+        ┌─────────────────────────┐
+        │                         │
+        │   task-management-api   │
+        │                         │
+        │   Node.js + Express     │
+        │                         │
+        └────────────┬────────────┘
+                     |
+                     |
+                     ↓
 
-Expected response:
+        ┌─────────────────────────┐
+        │                         │
+        │ task-management-mongodb  │
+        │                         │
+        │       MongoDB           │
+        │                         │
+        └─────────────────────────┘
+Health Checks
+API Healthcheck
 
-```json
+Endpoint:
+
+GET /health
+
+Response:
+
 {
   "status": "OK",
   "message": "API is running",
   "timestamp": "2026-07-28T18:55:28.412Z"
 }
-```
 
-## Stop Containers
+Docker automatically checks:
 
-```bash
+http://localhost:5000/health
+
+Every:
+
+30 seconds
+MongoDB Healthcheck
+
+Docker executes:
+
+mongosh --eval "db.adminCommand('ping')"
+
+MongoDB must respond successfully before API starts.
+
+Docker Commands
+
+Start containers:
+
+docker compose up
+
+Build containers:
+
+docker compose up --build
+
+Stop containers:
+
 docker compose down
-```
 
-## Remove Containers and Volumes
+Remove containers and volumes:
 
-```bash
 docker compose down -v
-```
 
----
+View running containers:
 
-# Docker Architecture
+docker ps
 
-```text
-              Docker Network
-                    │
-                    │
-      task-management-api
-                    │
-                    │
-   task-management-mongodb
-```
+View logs:
 
-The API container communicates with MongoDB through Docker's internal networking:
+docker compose logs -f
+API Endpoints
+Authentication
+Method	Endpoint	Description	Auth
+POST	/api/auth/register	Register new user	Public
+POST	/api/auth/login	Login user	Public
+Tasks
+Method	Endpoint	Description	Auth
+POST	/api/tasks	Create task	Required
+GET	/api/tasks	Get user's tasks	Required
+GET	/api/tasks/:id	Get task by id	Required
+PATCH	/api/tasks/:id	Update task	Required
+DELETE	/api/tasks/:id	Delete task	Required
+Authentication Flow
 
-```text
-mongodb://mongodb:27017/task-management
-```
+Protected routes require JWT token.
 
-Docker healthchecks ensure:
-
-- MongoDB is ready before API startup
-- API is responding correctly
-- Failed containers restart automatically
-
----
-
-# API Documentation
-
-Swagger UI:
-
-```text
-http://localhost:5000/api-docs
-```
-
----
-
-# API Endpoints
-
-## Authentication
-
-| Method | Endpoint | Description | Authentication |
-|--------|----------|-------------|----------------|
-| POST | `/api/auth/register` | Register new user | Public |
-| POST | `/api/auth/login` | Login user | Public |
-
-### Tasks
-
-| Method | Endpoint | Description | Authentication |
-|--------|----------|-------------|----------------|
-| POST | `/api/tasks` | Create task | Required |
-| GET | `/api/tasks` | Get user's tasks | Required |
-| GET | `/api/tasks/:id` | Get task by ID | Required |
-| PATCH | `/api/tasks/:id` | Update task | Required |
-| DELETE | `/api/tasks/:id` | Delete task | Required |
-
----
-
-# Authentication Flow
-
-Protected routes require JWT authentication.
-
-```text
 Client Request
-      │
-      ▼
+
+      ↓
+
 Authentication Middleware
-      │
-      ▼
+
+      ↓
+
 Controller
-      │
-      ▼
+
+      ↓
+
 Service Layer
-      │
-      ▼
+
+      ↓
+
 Repository Layer
-      │
-      ▼
+
+      ↓
+
 MongoDB
-```
+API Testing
 
----
+Testing stack:
 
-# API Testing
-
-The project includes automated tests using:
-
-- Jest
-- Supertest
-- MongoDB Memory Server
+Jest
+Supertest
+MongoDB Memory Server
 
 Tests cover:
 
-- User registration
-- User login
-- Task creation
-- Task retrieval
-- Task updating
-- Task deletion
+User registration
+User login
+Task creation
+Task retrieval
+Task update
+Task deletion
 
 Run tests:
 
-```bash
 npm test
-```
+Security Features
 
----
+Implemented security:
 
-# Security Features
-
-The application includes:
-
-- Password hashing with bcrypt
-- JWT authentication
-- Protected API routes
-- Request validation
-- Centralized error handling
-- Secure authentication workflow
-
----
-
-# CI/CD
-
-GitHub Actions workflow is used to automate:
-
-- Installing dependencies
-- Running TypeScript build
-- Running automated tests
-
-Pipeline:
-
-```text
-Push Code
-    │
-    ▼
-GitHub Actions
-    │
-    ▼
-npm install
-    │
-    ▼
-npm run build
-    │
-    ▼
-npm test
-```
-
----
-
-# Future Improvements
+Password hashing with bcrypt
+JWT authentication
+Protected API routes
+Request validation
+Centralized error handling
+Secure authentication workflow
+Future Improvements
 
 Planned improvements:
 
-- Cloud deployment
-- React frontend application
-- Advanced authorization roles
-- Pagination and filtering
-- Task due dates and reminders
-- Monitoring and logging improvements
+GitHub Actions CI/CD pipeline
+Cloud deployment
+React frontend application
+Role based authorization
+Pagination and filtering
+Task due dates
+Redis caching
+Monitoring and logging improvements
+Author
 
----
-
-# Author
-
-Developed by **Darya**
-
+Developed by Darya
