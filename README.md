@@ -1,4 +1,4 @@
-````markdown
+````
 # Task Management System
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
