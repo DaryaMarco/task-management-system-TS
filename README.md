@@ -192,91 +192,131 @@ task-management-system-TS/
     ├── tsconfig.json
     └── .env.example
 ```
-
 # Installation
 
 Clone the repository:
 
-```
+```bash
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
+```
 
-Navigate into backend folder:
+Navigate into the backend folder:
 
+```bash
 cd server
----
+```
+
 Install dependencies:
 
+```bash
 npm install
-Environment Variables
----
-Create a .env file inside the server directory:
+```
 
+---
+
+# Environment Variables
+
+Create a `.env` file inside the `server` directory:
+
+```env
 PORT=5000
-
 MONGO_URI=mongodb://localhost:27017/task-management
-
 JWT_SECRET=your_secret_key
-Running the Project
-Development Mode
-npm run dev
+```
+
 ---
+
+# Running the Project
+
+## Development Mode
+
+```bash
+npm run dev
+```
+
 Server:
 
+```text
 http://localhost:5000
-Swagger API Documentation
+```
+
+---
+
+# Swagger API Documentation
 
 Interactive API documentation is available through Swagger UI.
 
 Swagger URL:
 
+```text
 http://localhost:5000/api-docs
+```
 
 Swagger allows you to:
 
-View all endpoints
-Test API requests
-Send JWT authentication tokens
-Explore schemas
-Docker Setup
+- View all endpoints
+- Test API requests
+- Send JWT authentication tokens
+- Explore request and response schemas
+
+---
+
+# Docker Setup
 
 The application is fully containerized using Docker and Docker Compose.
 
-Docker runs:
+Docker includes:
 
-Node.js API container
-MongoDB container
-Internal Docker network
-Persistent database storage
-Health monitoring
-Requirements
+- Node.js API container
+- MongoDB container
+- Internal Docker network
+- Persistent database storage
+- Health monitoring
+
+## Requirements
 
 Install:
 
-Docker
-Docker Compose
-Start Application with Docker
+- Docker
+- Docker Compose
 
-Navigate into server folder:
+## Start the Application
 
+Navigate into the server folder:
+
+```bash
 cd server
+```
 
-Build and run:
+Build and start the containers:
 
+```bash
 docker compose up --build
+```
 
-Application:
+Application URL:
 
+```text
 http://localhost:5000
-Docker Services
-Service	Container	Port
-API	task-management-api	5000
-MongoDB	task-management-mongodb	27017
-Docker Compose Architecture
+```
+
+---
+
+## Docker Services
+
+| Service | Container | Port |
+|----------|-----------|------|
+| API | task-management-api | 5000 |
+| MongoDB | task-management-mongodb | 27017 |
+
+---
+
+## Docker Compose Architecture
+
+```text
                  Docker Network
-
-                       |
-                       |
-
+                       │
+                       │
         ┌─────────────────────────┐
         │                         │
         │   task-management-api   │
@@ -284,152 +324,203 @@ Docker Compose Architecture
         │   Node.js + Express     │
         │                         │
         └────────────┬────────────┘
-                     |
-                     |
-                     ↓
-
+                     │
+                     │
+                     ▼
         ┌─────────────────────────┐
         │                         │
-        │ task-management-mongodb  │
+        │ task-management-mongodb │
         │                         │
-        │       MongoDB           │
+        │        MongoDB          │
         │                         │
         └─────────────────────────┘
-Health Checks
-API Healthcheck
+```
+
+---
+
+## Health Checks
+
+### API Healthcheck
 
 Endpoint:
 
+```http
 GET /health
+```
 
-Response:
+Example Response:
 
+```json
 {
   "status": "OK",
   "message": "API is running",
   "timestamp": "2026-07-28T18:55:28.412Z"
 }
+```
 
 Docker automatically checks:
 
+```text
 http://localhost:5000/health
+```
 
-Every:
+Check interval:
 
-30 seconds
-MongoDB Healthcheck
+```text
+Every 30 seconds
+```
+
+### MongoDB Healthcheck
 
 Docker executes:
 
+```bash
 mongosh --eval "db.adminCommand('ping')"
+```
 
-MongoDB must respond successfully before API starts.
+MongoDB must respond successfully before the API starts.
 
-Docker Commands
+---
+
+# Docker Commands
 
 Start containers:
 
+```bash
 docker compose up
+```
 
-Build containers:
+Build and start containers:
 
+```bash
 docker compose up --build
+```
 
 Stop containers:
 
+```bash
 docker compose down
+```
 
-Remove containers and volumes:
+Stop containers and remove volumes:
 
+```bash
 docker compose down -v
+```
 
 View running containers:
 
+```bash
 docker ps
+```
 
 View logs:
 
+```bash
 docker compose logs -f
-API Endpoints
-Authentication
-Method	Endpoint	Description	Auth
-POST	/api/auth/register	Register new user	Public
-POST	/api/auth/login	Login user	Public
-Tasks
-Method	Endpoint	Description	Auth
-POST	/api/tasks	Create task	Required
-GET	/api/tasks	Get user's tasks	Required
-GET	/api/tasks/:id	Get task by id	Required
-PATCH	/api/tasks/:id	Update task	Required
-DELETE	/api/tasks/:id	Delete task	Required
-Authentication Flow
+```
 
-Protected routes require JWT token.
+---
 
+# API Endpoints
+
+## Authentication
+
+| Method | Endpoint | Description | Authentication |
+|--------|----------|-------------|----------------|
+| POST | `/api/auth/register` | Register a new user | Public |
+| POST | `/api/auth/login` | Login and receive JWT token | Public |
+
+### Tasks
+
+| Method | Endpoint | Description | Authentication |
+|--------|----------|-------------|----------------|
+| POST | `/api/tasks` | Create a task | Required |
+| GET | `/api/tasks` | Get authenticated user's tasks | Required |
+| GET | `/api/tasks/:id` | Get task by ID | Required |
+| PATCH | `/api/tasks/:id` | Update task | Required |
+| DELETE | `/api/tasks/:id` | Delete task | Required |
+
+---
+
+# Authentication Flow
+
+Protected routes require a valid JWT token.
+
+```text
 Client Request
-
-      ↓
-
+      │
+      ▼
 Authentication Middleware
-
-      ↓
-
+      │
+      ▼
 Controller
-
-      ↓
-
+      │
+      ▼
 Service Layer
-
-      ↓
-
+      │
+      ▼
 Repository Layer
-
-      ↓
-
+      │
+      ▼
 MongoDB
-API Testing
+```
+
+---
+
+# API Testing
 
 Testing stack:
 
-Jest
-Supertest
-MongoDB Memory Server
+- Jest
+- Supertest
+- MongoDB Memory Server
 
 Tests cover:
 
-User registration
-User login
-Task creation
-Task retrieval
-Task update
-Task deletion
+- User registration
+- User login
+- Task creation
+- Task retrieval
+- Task update
+- Task deletion
 
 Run tests:
 
+```bash
 npm test
-Security Features
+```
 
-Implemented security:
+---
 
-Password hashing with bcrypt
-JWT authentication
-Protected API routes
-Request validation
-Centralized error handling
-Secure authentication workflow
-Future Improvements
+# Security Features
+
+The application includes:
+
+- Password hashing with bcrypt
+- JWT authentication
+- Protected API routes
+- Request validation
+- Centralized error handling
+- Secure authentication workflow
+
+---
+
+# Future Improvements
 
 Planned improvements:
 
-GitHub Actions CI/CD pipeline
-Cloud deployment
-React frontend application
-Role based authorization
-Pagination and filtering
-Task due dates
-Redis caching
-Monitoring and logging improvements
-Author
+- GitHub Actions CI/CD pipeline
+- Cloud deployment
+- React frontend application
+- Role-based authorization
+- Pagination and filtering
+- Task due dates
+- Redis caching
+- Monitoring and logging improvements
 
-Developed by Darya
-```
+---
+
+# Author
+
+Developed by **Darya**
