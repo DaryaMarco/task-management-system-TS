@@ -169,31 +169,28 @@ This architecture provides:
 ---
 
 # Project Structure
-## Project Structure
-
 ```text
-task-management-system-TS
-│
-└── server
-    │
-    ├── src
-    │   ├── controllers
-    │   ├── services
-    │   ├── repositories
-    │   ├── models
-    │   ├── routes
-    │   ├── middleware
-    │   ├── validators
-    │   ├── interfaces
+task-management-system-TS/
+└── server/
+    ├── src/
+    │   ├── config/
+    │   ├── controllers/
+    │   ├── interfaces/
+    │   ├── middleware/
+    │   ├── models/
+    │   ├── repositories/
+    │   ├── routes/
+    │   ├── services/
+    │   ├── validators/
+    │   ├── app.ts
     │   └── server.ts
-    │
-    ├── tests
-    │
+    ├── tests/
+    ├── docs/
     ├── Dockerfile
     ├── docker-compose.yml
     ├── package.json
-    ├── package-lock.json
-    └── tsconfig.json
+    ├── tsconfig.json
+    └── .env.example
 ```
 
 # Installation
