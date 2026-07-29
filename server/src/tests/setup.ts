@@ -9,7 +9,7 @@ let mongoServer : MongoMemoryServer;
 beforeAll(async ()=>{
  mongoServer = await MongoMemoryServer.create({
         binary:{
-            version:"7.0.14"
+            version:"7"
         }
     });
     const uri = mongoServer.getUri();
