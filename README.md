@@ -139,7 +139,6 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 
 The project follows a layered backend architecture:
 
-
 Request
 |
 ↓
@@ -160,7 +159,6 @@ Model
 ↓
 MongoDB
 
-
 This architecture provides:
 
 - Better separation of concerns
@@ -172,9 +170,8 @@ This architecture provides:
 
 # Project Structure
 
-
-- task-management-system-TS
---- 
+---text
+task-management-system
 │
 └── server
 │
@@ -198,6 +195,7 @@ This architecture provides:
 ├── package-lock.json
 └── tsconfig.json
 
+---
 
 ---
 
@@ -440,3 +438,4 @@ Monitoring and logging improvements
 Author
 
 Developed by Darya
+```
