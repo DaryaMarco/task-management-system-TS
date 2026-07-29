@@ -173,8 +173,8 @@ This architecture provides:
 # Project Structure
 
 
-task-management-system-TS
-
+- task-management-system-TS
+--- 
 │
 └── server
 │
@@ -211,12 +211,12 @@ git clone https://github.com/DaryaMarco/task-management-system-TS.git
 Navigate into backend folder:
 
 cd server
-
+---
 Install dependencies:
 
 npm install
 Environment Variables
-
+---
 Create a .env file inside the server directory:
 
 PORT=5000
@@ -227,7 +227,7 @@ JWT_SECRET=your_secret_key
 Running the Project
 Development Mode
 npm run dev
-
+---
 Server:
 
 http://localhost:5000
