@@ -482,4 +482,4 @@ Planned improvements:
 # Author
 
 Developed by **Darya**
-````
+
