@@ -1,34 +1,20 @@
 import dotenv from "dotenv";
-
 dotenv.config();
-import mongoose  from "mongoose";
-import {MongoMemoryServer} from "mongodb-memory-server";
 
-let mongoServer : MongoMemoryServer;
+import mongoose from "mongoose";
 
-beforeAll(async ()=>{
- mongoServer = await MongoMemoryServer.create({
-        binary:{
-            version:"7.0.14"
-        }
-    });
-    const uri = mongoServer.getUri();
-    await mongoose.connect(uri);
+beforeAll(async () => {
+  await mongoose.connect(process.env.MONGO_URI as string);
 });
 
-afterEach(async ()=>{
-    const collections = mongoose.connection.collections;
-    for( const key in collections){
-        await collections[key].deleteMany({});
-    }
+afterEach(async () => {
+  const collections = mongoose.connection.collections;
 
+  for (const key in collections) {
+    await collections[key].deleteMany({});
+  }
 });
 
-afterAll(async ()=>{
-    await mongoose.connection.close();
-    if(mongoServer){
-        await mongoServer.stop();
-    }
+afterAll(async () => {
+  await mongoose.connection.close();
 });
-
-

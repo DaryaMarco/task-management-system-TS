@@ -5,13 +5,33 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+
+        options: >-
+          --health-cmd="mongosh --eval \"db.adminCommand('ping')\""
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     defaults:
       run:
         working-directory: server
+
+    env:
+      MONGO_URI: mongodb://localhost:27017/task-management-test
+      JWT_SECRET: github-actions-secret
 
     steps:
       - uses: actions/checkout@v4
@@ -26,5 +46,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Test
+      - name: Run Tests
         run: npm test
