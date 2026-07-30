@@ -2,29 +2,20 @@ name: Backend CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
-           options: >-
-          --health-cmd="mongosh --eval \"db.adminCommand('ping')\""
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
 
     defaults:
       run:
         working-directory: server
 
     env:
-      MONGO_URI: mongodb://localhost:27017/task-management-test
       JWT_SECRET: github-actions-secret
 
     steps:
