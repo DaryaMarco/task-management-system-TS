@@ -45,6 +45,15 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 
 ---
 
+- User Authentication
+  - Register
+  - Login
+  - JWT Access Token
+  - Refresh Token with HttpOnly Cookie
+  - Hashed Refresh Tokens stored in MongoDB
+
+---
+
 ## Task Management
 
 - Create tasks
@@ -78,6 +87,7 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 - Jest testing framework
 - Supertest API testing
 - MongoDB Memory Server for isolated tests
+- API integration testing
 
 ---
 
@@ -112,6 +122,10 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 - JSON Web Token (JWT)
 - bcryptjs
 - Authentication Middleware
+- bcryptjs for password hashing
+- JWT-based authentication
+- Cookie-based refresh token authentication
+- HttpOnly secure cookies
 
 ## Validation
 
@@ -127,6 +141,7 @@ The goal of this project is to demonstrate a scalable, maintainable, and product
 
 - Swagger UI
 - swagger-jsdoc
+- Swagger OpenAPI documentation
 
 ## DevOps
 
@@ -466,6 +481,17 @@ Repository Layer
 MongoDB
 ```
 
+The authentication system uses JWT with refresh token rotation strategy.
+
+1. User logs in with email and password.
+2. Server validates credentials.
+3. Server generates:
+   - Access Token
+   - Refresh Token
+4. Refresh Token is hashed and stored in MongoDB.
+5. Refresh Token is sent to the client as an HttpOnly Cookie.
+6. Access Token is returned in the response body.
+
 ---
 
 # API Testing
@@ -518,6 +544,7 @@ Planned improvements:
 - Task due dates
 - Redis caching
 - Monitoring and logging improvements
+- Winston logger for application logging
 
 ---
 
