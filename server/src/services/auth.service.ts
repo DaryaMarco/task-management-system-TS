@@ -1,9 +1,11 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import AppError from "../utils/AppError";
 import userRepository from "../repositories/user.repository";
 import { IUser } from "../interfaces/user.interface";
 import type {ILoginResponse} from "../interfaces/auth.interface";
+import { generateAccessToken } from "../utils/jwt.util";
+import refreshTokenModel from "../models/refreshToken.model";
+import { generateRefreshToken, hashRefreshToken } from "../utils/token.util";
 
 class AuthService {
     // REGISTER
@@ -33,7 +35,6 @@ class AuthService {
             return user;
 
         }
-
 // LOGIN
        async login(email:string, password:string):Promise<ILoginResponse>
        {
@@ -56,29 +57,33 @@ class AuthService {
                 "Invalid email or password",
                 401
             );
-        }
-        const token = jwt.sign(
-            {
-            id: user._id!.toString(),
-            email: user.email       
-            },
-            process.env.JWT_SECRET!,
-            {
-            expiresIn: "7d"
-            }
-        );
-        return {
-            token,
-            user :{
-                id : user._id!.toString(),
-                name : user.name,
-                email: user.email
-            }
-        }
-        
-       }
+        };
+        const accessToken = generateAccessToken({
+        id: user._id!.toString(),
+        role: user.role,
+    });
+        const refreshToken = generateRefreshToken();
 
-}
+        const hashedToken = hashRefreshToken(refreshToken);
+
+        await refreshTokenModel.create({
+            userId: user._id,
+            hashedToken,
+            expiresAt: new Date(
+                Date.now() + 7 * 24 * 60 * 60 * 1000
+            ),
+        });
+        return {
+            accessToken,
+            refreshToken,
+            user: {
+                id: user._id!.toString(),
+                name: user.name,
+                email: user.email,
+    },
+  } 
+      
+}}
 
 
 export default new AuthService();

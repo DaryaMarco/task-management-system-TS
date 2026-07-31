@@ -1,10 +1,11 @@
 export interface IAuthPayload {
     id: string;
-    email: string;
+    role: "admin" | "user";
 }
 
 export interface ILoginResponse {
-    token: string;
+    accessToken: string;
+    refreshToken: string;
     user: {
         id: string;
         name: string;
