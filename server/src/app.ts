@@ -8,6 +8,8 @@ import cors from "cors";
 import morgan from "morgan";
 import logger from "./config/logger";
 import healthRoutes from "./routes/health.routes";
+import cookieParser from "cookie-parser";
+
 
 const app = express();
 app.use(
@@ -28,6 +30,8 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec)
 );
+app.use(cookieParser());
+
 // Routed
 app.use("/api/auth",authRoutes);
 app.use("/api/tasks",taskRoute);
@@ -36,6 +40,7 @@ app.get("/", (req, res)=>{
     res.send("Task-management API - TypeScript 🚀 ")
 });
 app.use("/health",healthRoutes);
+
 
 app.use(errorHandler);
 

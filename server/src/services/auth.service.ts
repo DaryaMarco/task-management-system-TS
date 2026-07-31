@@ -4,7 +4,7 @@ import userRepository from "../repositories/user.repository";
 import { IUser } from "../interfaces/user.interface";
 import type {ILoginResponse} from "../interfaces/auth.interface";
 import { generateAccessToken } from "../utils/jwt.util";
-import refreshTokenModel from "../models/refreshToken.model";
+import refreshTokenRepository from "../repositories/refreshToken.repository";
 import { generateRefreshToken, hashRefreshToken } from "../utils/token.util";
 
 class AuthService {
@@ -62,12 +62,14 @@ class AuthService {
         id: user._id!.toString(),
         role: user.role,
     });
+
+
         const refreshToken = generateRefreshToken();
 
         const hashedToken = hashRefreshToken(refreshToken);
 
-        await refreshTokenModel.create({
-            userId: user._id,
+        await refreshTokenRepository.create({
+            userId: user._id!.toString(),
             hashedToken,
             expiresAt: new Date(
                 Date.now() + 7 * 24 * 60 * 60 * 1000
