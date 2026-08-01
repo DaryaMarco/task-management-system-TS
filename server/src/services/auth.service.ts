@@ -6,7 +6,7 @@ import type {ILoginResponse} from "../interfaces/auth.interface";
 import { generateAccessToken } from "../utils/jwt.util";
 import refreshTokenRepository from "../repositories/refreshToken.repository";
 import { generateRefreshToken, hashRefreshToken } from "../utils/token.util";
-
+import {IRefreshResponse} from "../interfaces/auth.interface"
 class AuthService {
     // REGISTER
         async register (userData : IUser):Promise<IUser>{
@@ -84,8 +84,59 @@ class AuthService {
                 email: user.email,
     },
   } 
-      
-}}
+}
+
+    async refreshAccessToken(
+        refreshToken:string
+    ):Promise<IRefreshResponse>{
+
+        const hashedToken = hashRefreshToken(refreshToken);
+
+        const storedToken =
+            await refreshTokenRepository.findByToken(
+                hashedToken
+            );
+
+        if(!storedToken){
+            throw new AppError(
+                "Invalid refresh token",
+                401
+            );
+        }
+
+        const user = await userRepository.findById(
+            storedToken.userId.toString()
+        );
+
+        if(!user){
+            throw new AppError(
+                "User not found",
+                404
+            );
+        }
+        const accessToken = generateAccessToken({
+            id: storedToken.userId.toString(),
+            role: "user",
+        });
+
+        return {
+            accessToken
+        };
+    }
+
+    async logout(refreshToken:string):Promise<void>{
+
+        const hashedToken = hashRefreshToken(refreshToken);
+
+        await refreshTokenRepository.deleteByToken(
+            hashedToken
+        );
+
+    }
+
+}
+
+
 
 
 export default new AuthService();

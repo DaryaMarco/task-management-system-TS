@@ -12,3 +12,7 @@ export interface ILoginResponse {
         email: string;
     };
 }
+
+export interface IRefreshResponse {
+    accessToken: string;
+}

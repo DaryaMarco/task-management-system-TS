@@ -4,7 +4,6 @@ import app from "./app";
 import connectDB  from "./config/db";
 import logger from "./config/logger";
 
-console.log("SERVER STARTED");
 const PORT = process.env.PORT || 5000;
 
 const startServer = async (): Promise<void> => {

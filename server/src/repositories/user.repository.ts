@@ -14,6 +14,9 @@ class UserRepository {
             userData
         );
     }
+    async findById(id: string){
+        return User.findById(id);
+    }
 }
 
 export default new UserRepository();

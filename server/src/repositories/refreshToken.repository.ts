@@ -23,6 +23,12 @@ class RefreshTokenRepository {
             })
         }
 
+        async deleteByToken(hashedToken:string){
+        return refreshTokenModel.deleteOne({
+            hashedToken
+        });
+}
+
 }
 
 

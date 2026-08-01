@@ -2,7 +2,6 @@ import { Router } from "express";
 import authController from "../controllers/auth.controller";
 
 const router = Router();
-console.log("AUTH ROUTES LOADED");
 /**
  * @swagger
  * /api/auth/register:
@@ -106,9 +105,15 @@ router.post(
      authController.login
 );
 
-    // router.post(
-    //     "/refresh",
-    //     authController.refresh
-    // );
+router.post(
+     "/refresh",
+     authController.refresh
+);
+
+router.post(
+    "/logout",
+    authController.logout
+);
+
 
 export default router;

@@ -23,6 +23,9 @@ app.use(
 
 
 app.use(cors());
+
+app.use(cookieParser());
+
 app.use(express.json());
 
 app.use(
@@ -30,7 +33,6 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec)
 );
-app.use(cookieParser());
 
 // Routed
 app.use("/api/auth",authRoutes);
