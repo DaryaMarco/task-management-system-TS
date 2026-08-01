@@ -1,7 +1,7 @@
 import taskRepository from "../repositories/task.repository";
 import { ITask } from "../interfaces/task.interface";
 import AppError from "../utils/AppError";
-
+import { HydratedDocument } from "mongoose";
 class TaskService {
 
     async createTask(taskData: ITask){
@@ -33,14 +33,20 @@ class TaskService {
 
     }
 
-    async updateTask(id:string, data:Partial<ITask>){
-        
-        return await taskRepository.update(id, data);
+   async updateTask(
+    task: HydratedDocument<ITask>,
+    data: Partial<ITask>
+) {
 
-    }
-    async deleteTask(id:string){
-        return await taskRepository.delete(id);
-    }
+    Object.assign(task, data);
 
+    return await taskRepository.save(task);
+
+}
+    async deleteTask(
+    task: HydratedDocument<ITask>
+) {
+    return await taskRepository.delete(task);
+}
 }
 export default new TaskService;

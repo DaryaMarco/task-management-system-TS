@@ -1,5 +1,6 @@
 import Task from "../models/task.model";
 import { ITask } from "../interfaces/task.interface";
+import { HydratedDocument } from "mongoose";
 
 
 class TaskRepository {
@@ -37,34 +38,12 @@ class TaskRepository {
 
     }
 
-
-    
-    async update(
-        id: string,
-        data: Partial<ITask>
-    ) {
-
-
-        const task = await Task.findByIdAndUpdate(
-            id,
-            data,
-            {
-            returnDocument: "after"
-        },
-                     
-        );
-        
-        return task;
-
+    async save(task: HydratedDocument<ITask>) {
+        return await task.save();
     }
 
-
-    async delete(id: string) {
-
-        const task = await Task.findByIdAndDelete(id);
-
-        return task;
-
+    async delete(task: HydratedDocument<ITask>) {
+        return await task.deleteOne();
     }
 
 

@@ -42,35 +42,36 @@ class TaskController {
     }
 
     async updateTask(
-                req: Request<{ id: string }>,
-                res: Response
-                ) {
+        req: Request<{ id: string }>,
+        res: Response
+    ) {
 
-    const task = await taskService.updateTask(
-        req.params.id,
-        req.body
-    );
+        const task = await taskService.updateTask(
+            req.task,
+            req.body
+        );
 
-
-    res.status(200).json({
-        status: "success",
-        data: task
-    });
+        res.status(200).json({
+            status: "success",
+            data: task
+        });
 
     }
 
-    async deleteTask(req:Request<{ id: string }>,res:Response){
+    async deleteTask(
+        req: Request<{ id: string }>,
+        res: Response
+    ) {
 
         await taskService.deleteTask(
-            req.params.id
+            req.task
         );
 
-
         res.status(200).json({
-            message:"Task deleted successfully"
+            message: "Task deleted successfully"
         });
 
-        }
+    }
 }
 
 export default new TaskController();
