@@ -3,6 +3,7 @@ import taskController from "../controllers/task.controller";
 import authMiddleware from "../middleware/auth.middleware";
 import { createTaskSchema, updateTaskSchema } from "../validators/task.validator"; 
 import validate from "../middleware/validate.middleware";
+import taskOwnership from "../middleware/taskOwnership.middleware";
 
 const router = Router();
 /**
@@ -147,6 +148,7 @@ router.post(
 router.get(
     "/",
     authMiddleware,
+    taskOwnership,
     taskController.getMyTasks
 );
 
@@ -216,6 +218,7 @@ router.get(
 router.get(
     "/:id",
     authMiddleware,
+    taskOwnership,
     taskController.getTask
 );
 /**
@@ -305,6 +308,7 @@ router.get(
 router.patch(
     "/:id",
     authMiddleware,
+    taskOwnership,
     validate(updateTaskSchema),
     taskController.updateTask
 );
@@ -345,6 +349,7 @@ router.patch(
 router.delete(
     "/:id",
     authMiddleware,
+    taskOwnership,
     taskController.deleteTask
 );
 

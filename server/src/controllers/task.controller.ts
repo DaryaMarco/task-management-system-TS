@@ -3,17 +3,17 @@ import { Request, Response } from "express";
 
 class TaskController {
 
-    async createTask(req: Request, res: Response){
-        const task =await taskService.createTask(
-           { ...req.body,
-            userId : req.user.id}
-        );
+        async createTask(req: Request, res: Response){
+            const task =await taskService.createTask(
+            { ...req.body,
+                userId : req.user.id}
+            );
 
-        res.status(201).json({
-            status:"success",
-            data:task
-        });
-    }
+            res.status(201).json({
+                status:"success",
+                data:task
+            });
+        }
 
     async getMyTasks(req:Request, res:Response){
         
@@ -59,18 +59,18 @@ class TaskController {
 
     }
 
-async deleteTask(req:Request<{ id: string }>,res:Response){
+    async deleteTask(req:Request<{ id: string }>,res:Response){
 
-    await taskService.deleteTask(
-        req.params.id
-    );
+        await taskService.deleteTask(
+            req.params.id
+        );
 
 
-    res.status(200).json({
-        message:"Task deleted successfully"
-    });
+        res.status(200).json({
+            message:"Task deleted successfully"
+        });
 
-    }
+        }
 }
 
 export default new TaskController();

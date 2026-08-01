@@ -1,5 +1,8 @@
 import { Router } from "express";
 import authController from "../controllers/auth.controller";
+import authMiddleware from "../middleware/auth.middleware";
+import authorize from "../middleware/role.middleware";
+
 
 const router = Router();
 /**
@@ -115,5 +118,15 @@ router.post(
     authController.logout
 );
 
+router.get(
+    "/admin-test",
+    authMiddleware,
+    authorize("admin"),
+    (req, res) => {
+        res.status(200).json({
+            message: "Welcome Admin!"
+        });
+    }
+);
 
 export default router;

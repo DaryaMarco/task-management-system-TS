@@ -34,6 +34,7 @@ class TaskService {
     }
 
     async updateTask(id:string, data:Partial<ITask>){
+        
         return await taskRepository.update(id, data);
 
     }
