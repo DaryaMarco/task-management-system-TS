@@ -1,6 +1,6 @@
 import taskService from "../services/task.service";
 import { Request, Response } from "express";
-
+import { ITaskQuery } from "../interfaces/task-query.interface";
 class TaskController {
 
         async createTask(req: Request, res: Response){
@@ -40,8 +40,16 @@ class TaskController {
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
         const userId = req.user.id;
+        
+        const query = {
+            userId,
+            page,
+            limit,
+            status: req.query.status as ITaskQuery["status"],
+            priority: req.query.priority as ITaskQuery["priority"]};
+            sort: req.query.sort;
 
-        const tasks = await taskService.getUserTasks(userId,page,limit);
+        const tasks = await taskService.getUserTasks(query);
         
         res.status(200).json({
             status: "success",
@@ -64,21 +72,21 @@ class TaskController {
     }
 
     async updateTask(
-        req: Request<{ id: string }>,
-        res: Response
-    ) {
+            req: Request<{ id: string }>,
+            res: Response
+        ) {
 
-        const task = await taskService.updateTask(
-            req.task,
-            req.body
-        );
+            const task = await taskService.updateTask(
+                req.task ,
+                req.body
+            );
 
-        res.status(200).json({
-            status: "success",
-            data: task
-        });
+            res.status(200).json({
+                status: "success",
+                data:task
+            });
 
-    }
+        }
 
     async deleteTask(
         req: Request<{ id: string }>,

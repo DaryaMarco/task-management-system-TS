@@ -21,21 +21,15 @@ const taskOwnership = async (
             }
         }
 
-            if (req.user.role === "admin") {
-            return next();
-        }
-
-            if (
-            task.userId.toString() !== req.user.id
-        ) {
+            if (req.user.role === "admin")   if (task.userId.toString() !== req.user.id) {
             throw new AppError(
                 "Forbidden",
                 403
             );
         }
-
+          req.task = task;
             next();
-
+                 
 };
 
 export default taskOwnership;

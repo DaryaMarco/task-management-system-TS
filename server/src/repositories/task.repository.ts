@@ -1,6 +1,7 @@
 import Task from "../models/task.model";
 import { ITask } from "../interfaces/task.interface";
 import { HydratedDocument } from "mongoose";
+import { ITaskQuery } from "../interfaces/task-query.interface";
 
 
 class TaskRepository {
@@ -34,28 +35,46 @@ class TaskRepository {
                 return tasks;
 
     }
-    async findByUserIdPaginated(
-        userId : string,
-        page: number,
-        limit: number
-    ){
-        const total = await Task.countDocuments({
-            userId
-        });
-        const skip = (page -1)* limit;
+    async findByUserIdPaginated(query: ITaskQuery){
 
-        const tasks = await Task.find({
-            userId
-        })
+        const {userId,page,limit,status,priority,sort} = query; 
+
+        const filter : any ={userId};
+
+        if(status){
+            filter.status = status;
+        }
+
+        if(priority){
+            filter.priority = priority;
+        }
+
+        const skip = (page -1)* limit;
+        let sortOption = {};
+
+        if(sort){
+
+            const sortField = sort.startsWith("-")
+                ? sort.substring(1)
+                : sort;
+
+
+            const sortOrder = sort.startsWith("-")
+                ? -1
+                : 1;
+
+
+            sortOption  = {
+                [sortField]: sortOrder
+        };
+    }
+          const task = await Task.find(filter)         
+        .sort(sortOption)
         .skip(skip)
         .limit(limit);
 
-        return {
-            tasks,
-            total
-        };
+        return task;
     }
-
     async save(task: HydratedDocument<ITask>) {
         return await task.save();
     }
