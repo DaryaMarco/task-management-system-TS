@@ -9,6 +9,7 @@ import morgan from "morgan";
 import logger from "./config/logger";
 import healthRoutes from "./routes/health.routes";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.routes"
 
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(
 // Routed
 app.use("/api/auth",authRoutes);
 app.use("/api/tasks",taskRoute);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res)=>{
     res.send("Task-management API - TypeScript 🚀 ")

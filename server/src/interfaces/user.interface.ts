@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { UserRole } from "./role.type";
 
 
 export interface IUser {
@@ -7,6 +8,6 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-    role: "user" | "admin";
+    role: UserRole;
 
 }

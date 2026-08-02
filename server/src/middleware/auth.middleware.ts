@@ -15,10 +15,7 @@ const authMiddleware = (
 
     if(!authHeader){
 
-        return res.status(401).json({
-            message:"No token provided"
-        });
-
+       throw new AppError("No token Provided", 401);
     }
 
 

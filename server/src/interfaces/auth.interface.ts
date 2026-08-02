@@ -1,6 +1,7 @@
+import { UserRole } from "./role.type";
 export interface IAuthPayload {
     id: string;
-    role: "admin" | "user";
+    role: UserRole;
 }
 
 export interface ILoginResponse {

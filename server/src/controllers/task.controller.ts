@@ -15,6 +15,26 @@ class TaskController {
             });
         }
 
+
+        async assignTask(
+            req: Request,
+            res: Response
+        ) {
+
+            const task = await taskService.createTask(
+                {
+                    ...req.body,
+                    userId: req.body.userId
+                }
+            );
+
+            res.status(201).json({
+                status: "success",
+                data: task
+            });
+
+    }    
+
     async getMyTasks(req:Request, res:Response){
         
         const userId = req.user.id;

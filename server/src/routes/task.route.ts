@@ -4,6 +4,8 @@ import authMiddleware from "../middleware/auth.middleware";
 import { createTaskSchema, updateTaskSchema } from "../validators/task.validator"; 
 import validate from "../middleware/validate.middleware";
 import taskOwnership from "../middleware/taskOwnership.middleware";
+import authorize from "../middleware/authorize.middleware";
+import {assignTaskSchema} from "../validators/task.validator";
 
 const router = Router();
 /**
@@ -90,6 +92,14 @@ router.post(
     validate(createTaskSchema),
     taskController.createTask
 );
+
+router.post(
+    "/assign",
+    authMiddleware,
+    authorize("admin"),
+    validate(assignTaskSchema),
+    taskController.assignTask
+);
 /**
  * @swagger
  * /api/tasks:
@@ -148,9 +158,9 @@ router.post(
 router.get(
     "/",
     authMiddleware,
-    taskOwnership,
     taskController.getMyTasks
 );
+
 
 /**
  * @swagger
