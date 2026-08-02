@@ -46,9 +46,9 @@ class TaskController {
             page,
             limit,
             status: req.query.status as ITaskQuery["status"],
-            priority: req.query.priority as ITaskQuery["priority"]};
-            sort: req.query.sort;
-
+            priority: req.query.priority as ITaskQuery["priority"],
+            sort: req.query.sort as ITaskQuery["sort"]     
+        }
         const tasks = await taskService.getUserTasks(query);
         
         res.status(200).json({

@@ -1,4 +1,5 @@
 import { ITask } from "./task.interface";
+import { TaskSortField } from "./task-sort.interface";
 
 export interface ITaskQuery {
     userId: string;
@@ -6,5 +7,5 @@ export interface ITaskQuery {
     limit: number;
     status?: ITask["status"];
     priority?: ITask["priority"];
-    sort?: string;
+    sort?: TaskSortField | `-${TaskSortField}`;
 }

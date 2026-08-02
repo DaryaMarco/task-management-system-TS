@@ -2,6 +2,7 @@ import Task from "../models/task.model";
 import { ITask } from "../interfaces/task.interface";
 import { HydratedDocument } from "mongoose";
 import { ITaskQuery } from "../interfaces/task-query.interface";
+import AppError from "../utils/AppError";
 
 
 class TaskRepository {
@@ -51,6 +52,7 @@ class TaskRepository {
 
         const skip = (page -1)* limit;
         let sortOption = {};
+        const allowedSortFields = ["title","status","priority","createdAt"];
 
         if(sort){
 
@@ -63,11 +65,17 @@ class TaskRepository {
                 ? -1
                 : 1;
 
-
-            sortOption  = {
+            if(!allowedSortFields.includes(sortField)){
+                throw new AppError(
+                    "Invalid sort field",
+                    400
+                );
+            }
+            sortOption = {
                 [sortField]: sortOrder
-        };
-    }
+            };
+
+        }
           const task = await Task.find(filter)         
         .sort(sortOption)
         .skip(skip)
