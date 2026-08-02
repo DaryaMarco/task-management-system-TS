@@ -9,9 +9,27 @@ class TaskService {
         return task;
     }
 
-    async getUserTasks(userId:string){
-        const tasks = await taskRepository.findByUserId(userId);
-        return tasks;
+    async getUserTasks(
+    userId: string,
+    page: number,
+    limit: number
+){
+ const result =
+        await taskRepository.findByUserIdPaginated(
+            userId,
+            page,
+            limit
+        );        return {
+            data: result.tasks  ,
+            pagination:{
+                page,
+                limit,
+                total: result.total,
+                totalPages: Math.ceil(
+                    result.total / limit
+                )
+            }
+        };
     }
 
    async getTaskById(id:string){

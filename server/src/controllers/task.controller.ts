@@ -36,14 +36,16 @@ class TaskController {
     }    
 
     async getMyTasks(req:Request, res:Response){
-        
+
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
         const userId = req.user.id;
 
-        const tasks = await taskService.getUserTasks(userId);
+        const tasks = await taskService.getUserTasks(userId,page,limit);
         
         res.status(200).json({
             status: "success",
-            data : tasks
+                ...tasks
         })
 
     }

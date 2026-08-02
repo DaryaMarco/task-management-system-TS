@@ -5,7 +5,6 @@ import { HydratedDocument } from "mongoose";
 
 class TaskRepository {
 
-
     async create(taskData: ITask) {
 
         const task = await Task.create(taskData);
@@ -14,7 +13,6 @@ class TaskRepository {
 
     }
 
-
     async findAll() {
 
         const tasks = await Task.find();
@@ -22,7 +20,6 @@ class TaskRepository {
         return tasks;
 
     }
-
 
     async findById(id: string) {
 
@@ -37,6 +34,27 @@ class TaskRepository {
                 return tasks;
 
     }
+    async findByUserIdPaginated(
+        userId : string,
+        page: number,
+        limit: number
+    ){
+        const total = await Task.countDocuments({
+            userId
+        });
+        const skip = (page -1)* limit;
+
+        const tasks = await Task.find({
+            userId
+        })
+        .skip(skip)
+        .limit(limit);
+
+        return {
+            tasks,
+            total
+        };
+    }
 
     async save(task: HydratedDocument<ITask>) {
         return await task.save();
@@ -45,7 +63,6 @@ class TaskRepository {
     async delete(task: HydratedDocument<ITask>) {
         return await task.deleteOne();
     }
-
 
 }
 
