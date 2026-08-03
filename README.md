@@ -172,24 +172,23 @@ Benefits:
 
 task-management-system-TS/
 
-└── server/
-├── src/
-│ ├── config/
-│ ├── controllers/
-│ ├── interfaces/
-│ ├── middleware/
-│ ├── models/
-│ ├── repositories/
-│ ├── routes/
-│ ├── services/
-│ ├── validators/
-│ ├── app.ts
-│ └── server.ts
-│
-├── tests/
-├── Dockerfile
-├── docker-compose.yml
-├── package.json
-├── tsconfig.json
-└── .env.example
----
+            └── server/
+            ├── src/
+            │ ├── config/
+            │ ├── controllers/
+            │ ├── interfaces/
+            │ ├── middleware/
+            │ ├── models/
+            │ ├── repositories/
+            │ ├── routes/
+            │ ├── services/
+            │ ├── validators/
+            │ ├── app.ts
+            │ └── server.ts
+            │
+            ├── tests/
+            ├── Dockerfile
+            ├── docker-compose.yml
+            ├── package.json
+            ├── tsconfig.json
+            └── .env.example
