@@ -15,6 +15,9 @@ const startServer = async (): Promise<void> => {
       console.log(
         `Server running on port ${PORT}`
       );
+      logger.info(
+      `Server running on port ${PORT}`
+    );
     });
 
   } catch (error) {
