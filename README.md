@@ -44,8 +44,8 @@ The project follows a scalable backend architecture:
 - HttpOnly Cookie based refresh tokens
 - Hashed refresh tokens stored in MongoDB
 - Role-based authorization
-    - User
-    - Admin
+  - User
+  - Admin
 
 ---
 
@@ -95,3 +95,23 @@ GET /api/tasks?search=typescript
 # Backend Architecture
 
 The application follows a layered architecture:
+
+Request
+|
+↓
+Route
+|
+↓
+Controller
+|
+↓
+Service
+|
+↓
+Repository
+|
+↓
+Model
+|
+↓
+MongoDB
