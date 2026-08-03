@@ -268,9 +268,9 @@ Remove volumes:
 
 docker compose down -v
 
-Docker Services
-Service	Container	Port
-API	task-management-api	5000
+
+Service	Container               Port
+API	      task-management-api	5000
 MongoDB	task-management-mongodb	27017
 
 Architecture:
@@ -287,56 +287,3 @@ Architecture:
 
           MongoDB
 
-Health Check
-
-Endpoint:
-
-GET /health
-
-Response:
-
-{
- "status":"OK",
- "message":"API is running"
-}
-
-API Endpoints
-Authentication
-Method	Endpoint	Description
-POST	/api/auth/register	Register user
-POST	/api/auth/login	Login
-POST	/api/auth/refresh	Refresh token
-POST	/api/auth/logout	Logout
-Tasks
-Method	Endpoint	Description
-POST	/api/tasks	Create task
-GET	/api/tasks	Get tasks
-GET	/api/tasks/:id	Get task
-PATCH	/api/tasks/:id	Update task
-DELETE	/api/tasks/:id	Delete task
-POST	/api/tasks/assign	Assign task (Admin)
-Users
-Method	Endpoint	Description
-GET	/api/users	Get users (Admin)
-DELETE	/api/users/:id	Delete user (Admin)
-Testing
-
-Testing tools:
-
-Jest
-Supertest
-MongoDB Memory Server
-
-Covered:
-
-User registration
-Login
-Authentication
-Task creation
-Task retrieval
-Task update
-Task deletion
-
-Run tests:
-
-npm test
