@@ -96,22 +96,22 @@ GET /api/tasks?search=typescript
 
 The application follows a layered architecture:
 
-Request
-|
-↓
-Route
-|
-↓
-Controller
-|
-↓
-Service
-|
-↓
-Repository
-|
-↓
-Model
-|
-↓
-MongoDB
+                Request
+                   │
+                   ▼
+                Route
+                   │
+                   ▼
+             Controller
+                   │
+                   ▼
+               Service
+                   │
+                   ▼
+             Repository
+                   │
+                   ▼
+                 Model
+                   │
+                   ▼
+               MongoDB
