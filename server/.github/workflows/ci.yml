@@ -1,0 +1,67 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+
+    defaults:
+      run:
+        working-directory: server
+
+
+    services:
+
+      mongodb:
+        image: mongo:7.0.14
+
+        ports:
+          - 27017:27017
+
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+
+
+    steps:
+
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+        with:
+          node-version: 24
+
+
+
+      - name: Install dependencies
+        run: npm install
+
+
+
+      - name: Run tests
+        run: npm test
+
+        env:
+          MONGO_URI: mongodb://localhost:27017/task-management-test
+          JWT_SECRET: test_secret
