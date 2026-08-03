@@ -52,3 +52,6 @@ jobs:
         env:
           MONGO_URI: mongodb://localhost:27017/task-management-test
           JWT_SECRET: test_secret
+
+          
+# CI pipeline updated
