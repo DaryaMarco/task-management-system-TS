@@ -192,3 +192,151 @@ task-management-system-TS/
             ├── package.json
             ├── tsconfig.json
             └── .env.example
+
+
+---
+
+# Installation
+
+Clone repository:
+
+```bash
+git clone https://github.com/DaryaMarco/task-management-system-TS.git
+
+Go to backend:
+
+cd server
+
+Install dependencies:
+
+npm install
+
+Environment Variables
+
+Create .env file:
+
+PORT=5000
+
+MONGO_URI=mongodb://localhost:27017/task-management
+
+JWT_SECRET=your_secret_key
+
+Run Application
+
+Development:
+
+npm run dev
+
+Server:
+
+http://localhost:5000
+
+Swagger Documentation
+
+Swagger UI:
+
+http://localhost:5000/api-docs
+
+Swagger provides:
+
+Endpoint documentation
+Request schemas
+Response examples
+JWT authentication testing
+Docker Setup
+
+The project is fully containerized using Docker Compose.
+
+Includes:
+
+Node.js API container
+MongoDB container
+Docker network
+Persistent MongoDB volume
+Health checks
+Automatic restart policy
+
+Start:
+
+docker compose up --build
+
+Stop:
+
+docker compose down
+
+Remove volumes:
+
+docker compose down -v
+
+Docker Services
+Service	Container	Port
+API	task-management-api	5000
+MongoDB	task-management-mongodb	27017
+
+Architecture:
+
+        Docker Network
+
+              |
+              |
+
+   Node.js Express API
+
+              |
+              |
+
+          MongoDB
+
+Health Check
+
+Endpoint:
+
+GET /health
+
+Response:
+
+{
+ "status":"OK",
+ "message":"API is running"
+}
+
+API Endpoints
+Authentication
+Method	Endpoint	Description
+POST	/api/auth/register	Register user
+POST	/api/auth/login	Login
+POST	/api/auth/refresh	Refresh token
+POST	/api/auth/logout	Logout
+Tasks
+Method	Endpoint	Description
+POST	/api/tasks	Create task
+GET	/api/tasks	Get tasks
+GET	/api/tasks/:id	Get task
+PATCH	/api/tasks/:id	Update task
+DELETE	/api/tasks/:id	Delete task
+POST	/api/tasks/assign	Assign task (Admin)
+Users
+Method	Endpoint	Description
+GET	/api/users	Get users (Admin)
+DELETE	/api/users/:id	Delete user (Admin)
+Testing
+
+Testing tools:
+
+Jest
+Supertest
+MongoDB Memory Server
+
+Covered:
+
+User registration
+Login
+Authentication
+Task creation
+Task retrieval
+Task update
+Task deletion
+
+Run tests:
+
+npm test
