@@ -197,7 +197,6 @@ task-management-system-TS/
 ---
 
 # Installation
-# Installation
 
 ## Clone Repository
 
