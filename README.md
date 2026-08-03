@@ -115,3 +115,58 @@ The application follows a layered architecture:
                    │
                    ▼
                MongoDB
+
+
+Benefits:
+
+- Separation of concerns
+- Better maintainability
+- Easier testing
+- Scalable structure
+
+---
+
+# Tech Stack
+
+## Backend
+
+- Node.js
+- Express.js
+- TypeScript
+
+## Database
+
+- MongoDB
+- Mongoose ODM
+
+## Authentication
+
+- JWT
+- bcryptjs
+- Cookie authentication
+- Refresh Token rotation
+
+## Validation
+
+- Joi
+
+## Testing
+
+- Jest
+- Supertest
+- MongoDB Memory Server
+
+## Documentation
+
+- Swagger OpenAPI
+- swagger-jsdoc
+- swagger-ui-express
+
+## DevOps
+
+- Docker
+- Docker Compose
+
+---
+
+# Project Structure
