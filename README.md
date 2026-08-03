@@ -116,7 +116,6 @@ The application follows a layered architecture:
                    ▼
                MongoDB
 
-
 Benefits:
 
 - Separation of concerns
@@ -170,3 +169,26 @@ Benefits:
 ---
 
 # Project Structure
+
+task-management-system-TS/
+
+└── server/
+├── src/
+│ ├── config/
+│ ├── controllers/
+│ ├── interfaces/
+│ ├── middleware/
+│ ├── models/
+│ ├── repositories/
+│ ├── routes/
+│ ├── services/
+│ ├── validators/
+│ ├── app.ts
+│ └── server.ts
+│
+├── tests/
+├── Dockerfile
+├── docker-compose.yml
+├── package.json
+├── tsconfig.json
+└── .env.example
