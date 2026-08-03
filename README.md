@@ -197,93 +197,246 @@ task-management-system-TS/
 ---
 
 # Installation
+# Installation
 
-Clone repository:
+## Clone Repository
 
 ```bash
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
+```
 
-Go to backend:
+## Go to Backend
 
+```bash
 cd server
+```
 
-Install dependencies:
+## Install Dependencies
 
+```bash
 npm install
+```
 
-Environment Variables
+---
 
-Create .env file:
+# Environment Variables
 
+Create `.env` file:
+
+```env
 PORT=5000
 
 MONGO_URI=mongodb://localhost:27017/task-management
 
 JWT_SECRET=your_secret_key
+```
 
-Run Application
+---
 
-Development:
+# Run Application
 
+## Development
+
+```bash
 npm run dev
+```
 
 Server:
 
+```
 http://localhost:5000
+```
 
-Swagger Documentation
+---
+
+# Swagger Documentation
 
 Swagger UI:
 
+```
 http://localhost:5000/api-docs
+```
 
 Swagger provides:
 
-Endpoint documentation
-Request schemas
-Response examples
-JWT authentication testing
-Docker Setup
+- Endpoint documentation
+- Request schemas
+- Response examples
+- JWT authentication testing
 
-The project is fully containerized using Docker Compose.
+---
 
-Includes:
+# Docker Setup
 
-Node.js API container
-MongoDB container
-Docker network
-Persistent MongoDB volume
-Health checks
-Automatic restart policy
+The project is fully containerized using **Docker Compose**.
 
-Start:
+## Includes
 
+- Node.js API container
+- MongoDB container
+- Docker network
+- Persistent MongoDB volume
+- Health checks
+- Automatic restart policy
+
+---
+
+## Start
+
+```bash
 docker compose up --build
+```
 
-Stop:
+## Stop
 
+```bash
 docker compose down
+```
 
-Remove volumes:
+## Remove Volumes
 
+```bash
 docker compose down -v
+```
 
+---
 
-Service	Container               Port
-API	      task-management-api	5000
-MongoDB	task-management-mongodb	27017
+# Docker Services
 
-Architecture:
+| Service | Container | Port |
+|---------|-----------|------|
+| API | `task-management-api` | `5000` |
+| MongoDB | `task-management-mongodb` | `27017` |
 
-        Docker Network
+---
 
-              |
-              |
+# Architecture
 
-   Node.js Express API
+```text
+              Docker Network
 
-              |
-              |
+                    |
+                    |
 
-          MongoDB
+        Node.js + Express API
 
+                    |
+                    |
+
+                 MongoDB
+```
+
+---
+
+# Health Check
+
+## Endpoint
+
+```http
+GET /health
+```
+
+## Response
+
+```json
+{
+  "status": "OK",
+  "message": "API is running"
+}
+```
+
+---
+
+# API Endpoints
+
+## Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register user |
+| POST | `/api/auth/login` | Login |
+| POST | `/api/auth/refresh` | Refresh token |
+| POST | `/api/auth/logout` | Logout |
+
+---
+
+## Tasks
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/tasks` | Create task |
+| GET | `/api/tasks` | Get tasks |
+| GET | `/api/tasks/:id` | Get task |
+| PATCH | `/api/tasks/:id` | Update task |
+| DELETE | `/api/tasks/:id` | Delete task |
+| POST | `/api/tasks/assign` | Assign task (Admin) |
+
+---
+
+## Users
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/users` | Get users (Admin) |
+| DELETE | `/api/users/:id` | Delete user (Admin) |
+
+---
+
+# Testing
+
+## Testing Tools
+
+- Jest
+- Supertest
+- MongoDB Memory Server
+
+## Covered
+
+- User registration
+- Login
+- Authentication
+- Task creation
+- Task retrieval
+- Task update
+- Task deletion
+
+## Run Tests
+
+```bash
+npm test
+```
+
+---
+
+# Security Features
+
+Implemented security:
+
+- Password hashing with bcrypt
+- JWT authentication
+- Refresh token hashing
+- HttpOnly cookies
+- Protected routes
+- Role authorization
+- Joi validation
+- Centralized error handling
+
+---
+
+# Future Improvements
+
+Planned:
+
+- GitHub Actions CI/CD
+- Cloud deployment
+- PostgreSQL migration with Prisma
+- Redis caching
+- WebSocket notifications
+- Monitoring improvements
+- Kubernetes deployment
+
+---
+
+# Author
+
+Developed by **Darya**
