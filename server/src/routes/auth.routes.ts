@@ -57,7 +57,7 @@ router.post(
  *   post:
  *     summary: Login user
  *     tags:
- *       - Authentication
+ *       - Auth
  *     requestBody:
  *       required: true
  *       content:
@@ -107,17 +107,61 @@ router.post(
     "/login",
      authController.login
 );
-
+/**
+ * @swagger
+ * /api/auth/refresh:
+ *   post:
+ *     summary: Refresh access token
+ *     tags:
+ *       - Auth
+ *     responses:
+ *       200:
+ *         description: New access token generated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *                   example: eyJhbGciOiJIUzI1NiIs...
+ */
 router.post(
      "/refresh",
      authController.refresh
 );
 
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags:
+ *       - Auth
+ *     responses:
+ *       200:
+ *         description: Logout successful and refresh token removed
+ */
 router.post(
     "/logout",
     authController.logout
 );
 
+/**
+ * @swagger
+ * /api/auth/admin-test:
+ *   get:
+ *     summary: Test admin authorization
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Welcome Admin
+ *       403:
+ *         description: Access denied
+ */
 router.get(
     "/admin-test",
     authMiddleware,

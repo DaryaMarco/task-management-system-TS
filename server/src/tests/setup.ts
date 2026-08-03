@@ -6,10 +6,14 @@ import {MongoMemoryServer} from "mongodb-memory-server";
 
 let mongoServer : MongoMemoryServer;
 
-beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri());
-
+beforeAll(async ()=>{
+ mongoServer = await MongoMemoryServer.create({
+        binary:{
+            version:"7.0.14"
+        }
+    });
+    const uri = mongoServer.getUri();
+    await mongoose.connect(uri);
 });
 
 afterEach(async ()=>{
@@ -28,3 +32,8 @@ afterAll(async ()=>{
 });
 
 
+// beforeAll(async () => {
+//     mongoServer = await MongoMemoryServer.create();
+//   await mongoose.connect(mongoServer.getUri());
+
+// });

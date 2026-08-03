@@ -62,7 +62,7 @@ describe ("Auth API", ()=>{
 
         expect(response.statusCode).toBe(200);
         expect(response.body.result)
-        .toHaveProperty("token");
+        .toHaveProperty("accessToken");
 
     });
 

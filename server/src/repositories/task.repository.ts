@@ -38,8 +38,9 @@ class TaskRepository {
     }
     async findByUserIdPaginated(query: ITaskQuery){
 
-        const {userId,page,limit,status,priority,sort} = query; 
-
+        const {userId,page,limit,status,priority,sort,search} = query; 
+        
+     
         const filter : any ={userId};
 
         if(status){
@@ -50,6 +51,22 @@ class TaskRepository {
             filter.priority = priority;
         }
 
+        if (search) {
+            filter.$or = [
+                {
+                    title: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    description: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                }
+            ];
+        }
         const skip = (page -1)* limit;
         let sortOption = {};
         const allowedSortFields = ["title","status","priority","createdAt"];

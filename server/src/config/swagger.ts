@@ -23,11 +23,19 @@ const options = {
         tags: [
             {
                 name: "Auth",
-                description: "Authentication endpoints",
+                description: "Auth endpoints",
             },
             {
                 name: "Tasks",
                 description: "Task management endpoints",
+            },
+            {
+                name: "Users",
+                description: "User management endpoints",
+            },
+            {
+                name: "Admin",
+                description: "Admin endpoints",
             },
         ],
 
@@ -48,12 +56,16 @@ const options = {
     },
 
     apis: [
-        "./src/routes/*.ts",
+         "./src/routes/**/*.ts",
     ],
 
 };
 
 
 const swaggerSpec = swaggerJsdoc(options);
+
+// console.log(
+//     JSON.stringify((swaggerSpec as any).paths, null, 2)
+// );
 
 export default swaggerSpec;

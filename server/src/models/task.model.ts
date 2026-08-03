@@ -45,7 +45,16 @@ const taskSchema = new Schema<ITaskDocument>(
     }
 );
 
+    taskSchema.index({
+        userId: 1,
+        status: 1,
+        priority: 1
+    });
 
+    taskSchema.index({
+        userId: 1,
+        createdAt: -1
+    });
 
 const Task = mongoose.model<ITaskDocument>(
     "task",

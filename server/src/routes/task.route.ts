@@ -92,7 +92,102 @@ router.post(
     validate(createTaskSchema),
     taskController.createTask
 );
-
+/**
+ * @swagger
+ * /api/tasks/assign:
+ *   post:
+ *     summary: Assign a task to a user
+ *     description: Assigns an existing task to another user. Only admin users can perform this action.
+ *     tags:
+ *       - Tasks
+ *     security:
+ *       - bearerAuth: []
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - taskId
+ *               - userId
+ *             properties:
+ *               taskId:
+ *                 type: string
+ *                 description: ID of the task to assign
+ *                 example: 66a123456789abcdef123456
+ *               userId:
+ *                 type: string
+ *                 description: ID of the user who will receive the task
+ *                 example: 66a987654321abcdef123456
+ *
+ *     responses:
+ *
+ *       200:
+ *         description: Task assigned successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: 66a123456789abcdef123456
+ *                     title:
+ *                       type: string
+ *                       example: Fix Payment Bug
+ *                     description:
+ *                       type: string
+ *                       example: Check payment service
+ *                     status:
+ *                       type: string
+ *                       example: pending
+ *                     priority:
+ *                       type: string
+ *                       example: high
+ *                     userId:
+ *                       type: string
+ *                       example: 66a987654321abcdef123456
+ *
+ *       400:
+ *         description: Validation error or invalid task/user ID
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: fail
+ *               message: Invalid taskId or userId
+ *
+ *       401:
+ *         description: Unauthorized - Missing or invalid JWT token
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: fail
+ *               message: Authentication required
+ *
+ *       403:
+ *         description: Forbidden - Only admins can assign tasks
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: fail
+ *               message: Admin access required
+ *
+ *       404:
+ *         description: Task or user not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: fail
+ *               message: Task or user not found
+ */
 router.post(
     "/assign",
     authMiddleware,

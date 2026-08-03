@@ -8,4 +8,6 @@ export interface ITaskQuery {
     status?: ITask["status"];
     priority?: ITask["priority"];
     sort?: TaskSortField | `-${TaskSortField}`;
+    search?: string;
+
 }
