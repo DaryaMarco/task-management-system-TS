@@ -1,35 +1,42 @@
-# Task Management System API
+# Task Management System API 🚀
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
-![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
-![Express](https://img.shields.io/badge/Express.js-API-black)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
-![JWT](https://img.shields.io/badge/Auth-JWT-orange)
-![Swagger](https://img.shields.io/badge/API-Documentation-brightgreen)
-![Jest](https://img.shields.io/badge/Testing-Jest-red)
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+A production-ready RESTful Task Management API built with **TypeScript, Node.js, Express.js, MongoDB, Mongoose, JWT, Jest, Supertest, Swagger, Docker, and Render**.
 
-A backend Task Management API built with **TypeScript, Express.js, MongoDB, JWT Authentication, Swagger, Jest, Supertest, and Docker** following a scalable layered architecture.
+The project demonstrates professional backend development practices including **layered architecture, repository and service patterns, authentication, authorization, resource ownership, validation, testing, API documentation, containerization, and cloud deployment**.
 
-The project demonstrates professional backend development practices including authentication, authorization, testing, API documentation, containerization, and clean architecture principles.
+---
+
+🌐 **Live API:** https://task-management-system-ts.onrender.com
+
+📦 **GitHub Repository:** https://github.com/DaryaMarco/task-management-system-TS
 
 ---
 
 # Overview
 
-Task Management System is a RESTful backend application designed to manage tasks securely.
+Task Management System is a RESTful backend application designed to securely manage tasks and users.
 
-Users can create, update, delete, search and manage their tasks, while administrators can manage users and assign tasks.
+Authenticated users can create, retrieve, update, search, filter, paginate, and delete their own tasks.
 
-The project follows a scalable backend architecture:
+The application also implements role-based authorization and resource ownership to prevent users from accessing or modifying resources belonging to other users.
 
-- Layered Architecture
-- Repository Pattern
-- Service Layer Pattern
-- Middleware-based security
-- Centralized error handling
-- Automated testing
-- Dockerized environment
+The project follows a scalable layered architecture:
+
+```text
+Request
+   ↓
+Route
+   ↓
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+Model
+   ↓
+MongoDB
+```
 
 ---
 
@@ -37,91 +44,181 @@ The project follows a scalable backend architecture:
 
 ## Authentication & Authorization
 
-- User registration
-- User login
-- JWT Access Token authentication
-- Refresh Token authentication
-- HttpOnly Cookie based refresh tokens
-- Hashed refresh tokens stored in MongoDB
-- Role-based authorization
-  - User
-  - Admin
+* User registration
+* User login
+* JWT Access Token authentication
+* Refresh Token authentication
+* Refresh Token stored in HttpOnly Cookie
+* Refresh Token hashing before database storage
+* Refresh Token expiration
+* Logout / token revocation
+* Role-based authorization
+
+  * User
+  * Admin
+* Protected routes
+* Resource ownership validation
 
 ---
 
 # Task Management
 
-Users can:
+Authenticated users can:
 
-- Create tasks
-- Get their tasks
-- Get task by ID
-- Update tasks
-- Delete tasks
-- Manage task status
-- Manage task priority
+* Create tasks
+* Get their tasks
+* Get a task by ID
+* Update tasks
+* Delete tasks
+* Manage task status
+* Manage task priority
 
-Admin users can:
+Task ownership is enforced so users cannot access or modify tasks belonging to other users.
 
-- Assign tasks to users
-- Manage users
-- Access admin protected routes
+Administrators have elevated permissions for protected administrative operations.
 
 ---
 
 # Advanced Task Features
 
-Implemented:
+The Task API supports:
 
-- Pagination
-- Filtering
-- Sorting
-- Search functionality
+* Pagination
+* Filtering
+* Sorting
+* Search
+* Task ownership
+* Status management
+* Priority management
 
-Examples:
+### Pagination
 
+```http
 GET /api/tasks?page=1&limit=10
+```
 
+### Filtering
+
+```http
 GET /api/tasks?status=completed
+```
 
+```http
 GET /api/tasks?priority=high
+```
 
+### Sorting
+
+```http
 GET /api/tasks?sort=createdAt
+```
 
+### Search
+
+Search is supported across task title and description:
+
+```http
 GET /api/tasks?search=typescript
+```
+
+Multiple query parameters can also be combined.
+
+---
+
+# Security & Authorization
+
+The API implements multiple layers of security.
+
+### Authentication
+
+JWT Access Tokens are used to authenticate protected requests.
+
+```http
+Authorization: Bearer <access_token>
+```
+
+### Refresh Tokens
+
+Refresh Tokens are:
+
+* Stored in HttpOnly Cookies
+* Hashed before database storage
+* Associated with the user
+* Stored with expiration information
+* Revocable
+
+### Resource Ownership
+
+Users can only access their own tasks.
+
+For example:
+
+```text
+User A
+   ↓
+Task A
+   ↓
+userId = User A
+```
+
+If User B attempts to access or delete Task A:
+
+```text
+User B
+   ↓
+Task A
+   ↓
+Ownership Check
+   ↓
+403 Forbidden
+```
+
+This behavior was verified in the deployed production environment.
 
 ---
 
 # Backend Architecture
 
-The application follows a layered architecture:
+The application follows a layered architecture combined with the Repository and Service patterns.
 
-                Request
-                   │
-                   ▼
-                Route
-                   │
-                   ▼
-             Controller
-                   │
-                   ▼
-               Service
-                   │
-                   ▼
-             Repository
-                   │
-                   ▼
-                 Model
-                   │
-                   ▼
-               MongoDB
+```text
+                 HTTP Request
+                      │
+                      ▼
+                   Routes
+                      │
+                      ▼
+                Middleware
+                      │
+              ┌───────┴───────┐
+              │               │
+        Authentication    Authorization
+              │               │
+              └───────┬───────┘
+                      ▼
+                  Controller
+                      │
+                      ▼
+                   Service
+                      │
+                      ▼
+                 Repository
+                      │
+                      ▼
+                   Model
+                      │
+                      ▼
+                  MongoDB
+```
 
-Benefits:
+### Benefits
 
-- Separation of concerns
-- Better maintainability
-- Easier testing
-- Scalable structure
+* Separation of concerns
+* Maintainable codebase
+* Testable business logic
+* Easier debugging
+* Reusable services
+* Scalable project structure
 
 ---
 
@@ -129,70 +226,86 @@ Benefits:
 
 ## Backend
 
-- Node.js
-- Express.js
-- TypeScript
+* Node.js
+* Express.js
+* TypeScript
 
 ## Database
 
-- MongoDB
-- Mongoose ODM
+* MongoDB
+* Mongoose
 
-## Authentication
+## Authentication & Security
 
-- JWT
-- bcryptjs
-- Cookie authentication
-- Refresh Token rotation
+* JSON Web Token (JWT)
+* bcryptjs
+* HttpOnly Cookies
+* Refresh Tokens
+* Helmet
+* express-rate-limit
+* express-mongo-sanitize
+* CORS
 
 ## Validation
 
-- Joi
+* Joi
+
+## Logging
+
+* Morgan
+* Winston
 
 ## Testing
 
-- Jest
-- Supertest
-- MongoDB Memory Server
+* Jest
+* Supertest
+* MongoDB Memory Server
+* ts-jest
 
-## Documentation
+## API Documentation
 
-- Swagger OpenAPI
-- swagger-jsdoc
-- swagger-ui-express
+* Swagger OpenAPI
+* swagger-jsdoc
+* swagger-ui-express
 
-## DevOps
+## DevOps & Deployment
 
-- Docker
-- Docker Compose
+* Docker
+* Docker Compose
+* GitHub Actions
+* Render
+* MongoDB Atlas
 
 ---
 
 # Project Structure
 
+```text
 task-management-system-TS/
-
-            └── server/
-            ├── src/
-            │ ├── config/
-            │ ├── controllers/
-            │ ├── interfaces/
-            │ ├── middleware/
-            │ ├── models/
-            │ ├── repositories/
-            │ ├── routes/
-            │ ├── services/
-            │ ├── validators/
-            │ ├── app.ts
-            │ └── server.ts
-            │
-            ├── tests/
-            ├── Dockerfile
-            ├── docker-compose.yml
-            ├── package.json
-            ├── tsconfig.json
-            └── .env.example
-
+│
+└── server/
+    │
+    ├── src/
+    │   ├── config/
+    │   ├── controllers/
+    │   ├── interfaces/
+    │   ├── middleware/
+    │   ├── models/
+    │   ├── repositories/
+    │   ├── routes/
+    │   ├── services/
+    │   ├── validators/
+    │   ├── tests/
+    │   ├── app.ts
+    │   └── server.ts
+    │
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── package.json
+    ├── tsconfig.json
+    ├── .env.example
+    └── README.md
+```
 
 ---
 
@@ -204,10 +317,10 @@ task-management-system-TS/
 git clone https://github.com/DaryaMarco/task-management-system-TS.git
 ```
 
-## Go to Backend
+## Navigate to Backend
 
 ```bash
-cd server
+cd task-management-system-TS/server
 ```
 
 ## Install Dependencies
@@ -220,7 +333,7 @@ npm install
 
 # Environment Variables
 
-Create `.env` file:
+Create a `.env` file in the `server` directory.
 
 ```env
 PORT=5000
@@ -228,7 +341,19 @@ PORT=5000
 MONGO_URI=mongodb://localhost:27017/task-management
 
 JWT_SECRET=your_secret_key
+
+JWT_EXPIRES_IN=15m
+
+NODE_ENV=development
 ```
+
+### Production
+
+Production secrets should **never be committed to GitHub**.
+
+For the deployed application, environment variables are configured through the hosting platform.
+
+The production database uses **MongoDB Atlas** and the API is deployed on **Render**.
 
 ---
 
@@ -240,108 +365,131 @@ JWT_SECRET=your_secret_key
 npm run dev
 ```
 
-Server:
+The API will run on:
 
-```
+```text
 http://localhost:5000
+```
+
+---
+
+# Build
+
+Compile TypeScript:
+
+```bash
+npm run build
+```
+
+This generates the compiled JavaScript files inside:
+
+```text
+dist/
+```
+
+---
+
+# Production Start
+
+```bash
+npm start
+```
+
+The production server starts from:
+
+```text
+dist/server.js
 ```
 
 ---
 
 # Swagger Documentation
 
-Swagger UI:
+Swagger UI is available locally at:
 
-```
+```text
 http://localhost:5000/api-docs
 ```
 
 Swagger provides:
 
-- Endpoint documentation
-- Request schemas
-- Response examples
-- JWT authentication testing
+* API endpoint documentation
+* Request schemas
+* Response examples
+* Authentication documentation
+* JWT testing support
 
 ---
 
-# Docker Setup
+# Docker
 
-The project is fully containerized using **Docker Compose**.
+The project includes Docker and Docker Compose configuration for local containerized development.
 
-## Includes
+## Docker Services
 
-- Node.js API container
-- MongoDB container
-- Docker network
-- Persistent MongoDB volume
-- Health checks
-- Automatic restart policy
+| Service | Container                 |    Port |
+| ------- | ------------------------- | ------: |
+| API     | `task-management-api`     |  `5000` |
+| MongoDB | `task-management-mongodb` | `27017` |
 
----
-
-## Start
+## Start Containers
 
 ```bash
 docker compose up --build
 ```
 
-## Stop
+## Stop Containers
 
 ```bash
 docker compose down
 ```
 
-## Remove Volumes
+## Remove Containers and Volumes
 
 ```bash
 docker compose down -v
 ```
 
----
-
-# Docker Services
-
-| Service | Container | Port |
-|---------|-----------|------|
-| API | `task-management-api` | `5000` |
-| MongoDB | `task-management-mongodb` | `27017` |
+MongoDB data is persisted through a Docker volume.
 
 ---
 
-# Architecture
+# Docker Architecture
 
 ```text
-              Docker Network
-
-                    |
-                    |
-
-        Node.js + Express API
-
-                    |
-                    |
-
-                 MongoDB
+                Docker Compose
+                     │
+          ┌──────────┴──────────┐
+          │                     │
+          ▼                     ▼
+   Node.js API              MongoDB
+   Express + TS             MongoDB 7
+          │                     │
+          └──────────┬──────────┘
+                     │
+               Docker Network
 ```
 
 ---
 
-# Health Check
+# API Health Check
 
-## Endpoint
+The root endpoint can be used to verify that the deployed API is running.
 
 ```http
-GET /health
+GET /
 ```
 
-## Response
+Production:
 
-```json
-{
-  "status": "OK",
-  "message": "API is running"
-}
+```text
+https://task-management-system-ts.onrender.com/
+```
+
+Expected response:
+
+```text
+Task-management API - TypeScript 🚀
 ```
 
 ---
@@ -350,54 +498,72 @@ GET /health
 
 ## Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register user |
-| POST | `/api/auth/login` | Login |
-| POST | `/api/auth/refresh` | Refresh token |
-| POST | `/api/auth/logout` | Logout |
+| Method | Endpoint             | Description                     |
+| ------ | -------------------- | ------------------------------- |
+| POST   | `/api/auth/register` | Register a new user             |
+| POST   | `/api/auth/login`    | Login user                      |
+| POST   | `/api/auth/refresh`  | Refresh access token            |
+| POST   | `/api/auth/logout`   | Logout and revoke refresh token |
 
 ---
 
 ## Tasks
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/tasks` | Create task |
-| GET | `/api/tasks` | Get tasks |
-| GET | `/api/tasks/:id` | Get task |
-| PATCH | `/api/tasks/:id` | Update task |
-| DELETE | `/api/tasks/:id` | Delete task |
-| POST | `/api/tasks/assign` | Assign task (Admin) |
+| Method | Endpoint            | Description                    |
+| ------ | ------------------- | ------------------------------ |
+| POST   | `/api/tasks`        | Create task                    |
+| GET    | `/api/tasks`        | Get authenticated user's tasks |
+| GET    | `/api/tasks/:id`    | Get task by ID                 |
+| PATCH  | `/api/tasks/:id`    | Update task                    |
+| DELETE | `/api/tasks/:id`    | Delete task                    |
+| POST   | `/api/tasks/assign` | Assign task (Admin)            |
 
 ---
 
 ## Users
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/users` | Get users (Admin) |
+| Method | Endpoint         | Description         |
+| ------ | ---------------- | ------------------- |
+| GET    | `/api/users`     | Get users (Admin)   |
 | DELETE | `/api/users/:id` | Delete user (Admin) |
 
 ---
 
 # Testing
 
-## Testing Tools
+The project uses:
 
-- Jest
-- Supertest
-- MongoDB Memory Server
+* Jest
+* Supertest
+* MongoDB Memory Server
+* ts-jest
 
-## Covered
+Tests cover important authentication and task-management flows.
 
-- User registration
-- Login
-- Authentication
-- Task creation
-- Task retrieval
-- Task update
-- Task deletion
+## Test Coverage Includes
+
+### Authentication
+
+* User registration
+* Duplicate email handling
+* Login
+* Authentication
+* Invalid authentication
+* Protected routes
+
+### Task Management
+
+* Task creation
+* Task retrieval
+* Get single task
+* Task update
+* Task deletion
+* Task ownership
+* Invalid task data
+* Filtering
+* Search
+* Pagination
+* Non-existing tasks
 
 ## Run Tests
 
@@ -405,37 +571,341 @@ GET /health
 npm test
 ```
 
+The test suite has been successfully executed locally.
+
 ---
 
-# Security Features
+# Production Verification
 
-Implemented security:
+The deployed API was manually tested against the live Render environment.
 
-- Password hashing with bcrypt
-- JWT authentication
-- Refresh token hashing
-- HttpOnly cookies
-- Protected routes
-- Role authorization
-- Joi validation
-- Centralized error handling
+## Authentication
+
+```text
+Register                    ✅
+Login                       ✅
+JWT Access Token            ✅
+Refresh Token Cookie        ✅
+HttpOnly Cookie             ✅
+No Token                    ✅ Rejected
+Invalid Token               ✅ Rejected
+```
+
+## Task API
+
+```text
+Create Task                 ✅
+Get All Tasks               ✅
+Get Single Task             ✅
+Filter                      ✅
+Search                      ✅
+Pagination                  ✅
+Update Task                 ✅
+Delete Task                 ✅
+Verify Deleted Task         ✅
+```
+
+## Authorization
+
+Resource ownership was also verified in production:
+
+```text
+User 1 → Own Task            ✅
+User 2 → User 1 Task        ❌ 403 Forbidden
+User 2 → Delete User 1 Task ❌ 403 Forbidden
+```
+
+This confirms that authentication and authorization are both enforced in the deployed environment.
+
+---
+
+# Database
+
+## Local Development
+
+The application can use a local MongoDB instance:
+
+```text
+mongodb://localhost:27017/task-management
+```
+
+## Docker
+
+When using Docker Compose:
+
+```text
+mongodb://mongodb:27017/task-management
+```
+
+## Production
+
+Production uses **MongoDB Atlas**.
+
+The production connection string is stored securely as an environment variable and is not committed to the repository.
+
+---
+
+# Database Indexing
+
+The Task collection uses indexes to improve query performance.
+
+Implemented indexes include:
+
+```text
+userId + status + priority
+userId + createdAt
+```
+
+These indexes support common task queries such as:
+
+* User-specific tasks
+* Filtering by status
+* Filtering by priority
+* Sorting by creation date
+
+---
+
+# CI / Testing
+
+The project includes automated testing through GitHub Actions.
+
+The CI workflow validates the application by installing dependencies and running the test suite.
+
+This helps ensure that changes do not break existing functionality before deployment.
+
+---
+
+# Deployment
+
+The API is deployed to **Render**.
+
+Production architecture:
+
+```text
+                    Internet
+                       │
+                       ▼
+                  Render
+                       │
+                       ▼
+              Node.js + Express
+                       │
+                       ▼
+                 MongoDB Atlas
+```
+
+### Production URL
+
+```text
+https://task-management-system-ts.onrender.com
+```
+
+### Deployment Configuration
+
+The Render service uses:
+
+```text
+Root Directory:
+server
+```
+
+Build command:
+
+```bash
+yarn install --production=false && yarn build
+```
+
+Start command:
+
+```bash
+yarn start
+```
+
+The production build compiles TypeScript before starting the Node.js server.
+
+---
+
+# Security Practices
+
+The project implements several backend security practices:
+
+* Password hashing with bcryptjs
+* JWT authentication
+* Refresh Token hashing
+* HttpOnly Cookies
+* Protected routes
+* Role-based authorization
+* Resource ownership checks
+* Joi request validation
+* Helmet security headers
+* Rate limiting
+* MongoDB sanitization
+* CORS configuration
+* Centralized error handling
+* Environment-based configuration
+* Production secrets excluded from source control
+
+---
+
+# API Request Flow
+
+A typical authenticated request follows this flow:
+
+```text
+Client
+  │
+  ▼
+Express Route
+  │
+  ▼
+Authentication Middleware
+  │
+  ▼
+Authorization / Ownership Middleware
+  │
+  ▼
+Controller
+  │
+  ▼
+Service
+  │
+  ▼
+Repository
+  │
+  ▼
+Mongoose Model
+  │
+  ▼
+MongoDB Atlas
+```
+
+---
+
+# Error Handling
+
+The API uses centralized error handling for common API failures.
+
+Examples include:
+
+```text
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+500 Internal Server Error
+```
+
+Example:
+
+```json
+{
+  "status": "fail",
+  "message": "Task not found"
+}
+```
+
+---
+
+# Example Production Requests
+
+### Register
+
+```http
+POST https://task-management-system-ts.onrender.com/api/auth/register
+```
+
+### Login
+
+```http
+POST https://task-management-system-ts.onrender.com/api/auth/login
+```
+
+### Get Tasks
+
+```http
+GET https://task-management-system-ts.onrender.com/api/tasks
+```
+
+### Create Task
+
+```http
+POST https://task-management-system-ts.onrender.com/api/tasks
+```
+
+### Search
+
+```http
+GET https://task-management-system-ts.onrender.com/api/tasks?search=Deploy
+```
+
+### Filter
+
+```http
+GET https://task-management-system-ts.onrender.com/api/tasks?status=pending
+```
+
+### Pagination
+
+```http
+GET https://task-management-system-ts.onrender.com/api/tasks?page=1&limit=10
+```
 
 ---
 
 # Future Improvements
 
-Planned:
+Potential future improvements include:
 
-- GitHub Actions CI/CD
-- Cloud deployment
-- PostgreSQL migration with Prisma
-- Redis caching
-- WebSocket notifications
-- Monitoring improvements
-- Kubernetes deployment
+* Redis caching
+* WebSocket notifications
+* Advanced monitoring
+* Centralized log management
+* Kubernetes deployment
+* PostgreSQL migration with Prisma
+* CI/CD pipeline improvements
+* API performance monitoring
+* Automated API integration testing in production-like environments
+
+---
+
+# Project Highlights
+
+This project demonstrates practical experience with:
+
+```text
+TypeScript
+Node.js
+Express
+MongoDB
+Mongoose
+JWT
+Authentication
+Authorization
+Repository Pattern
+Service Layer
+REST API
+Jest
+Supertest
+Swagger
+Docker
+Docker Compose
+GitHub Actions
+MongoDB Atlas
+Render
+```
+
+The project was developed with a focus on **clean architecture, security, testability, maintainability, and production deployment**.
 
 ---
 
 # Author
 
 Developed by **Darya**
+
+GitHub:
+
+https://github.com/DaryaMarco/task-management-system-TS
+
+Live API:
+
+https://task-management-system-ts.onrender.com
