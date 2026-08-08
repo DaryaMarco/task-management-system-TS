@@ -6,6 +6,7 @@ import validate from "../middleware/validate.middleware";
 import taskOwnership from "../middleware/taskOwnership.middleware";
 import authorize from "../middleware/authorize.middleware";
 import {assignTaskSchema} from "../validators/task.validator";
+import statusHistoryController from "../controllers/status-history.controller";
 
 const router = Router();
 /**
@@ -256,6 +257,12 @@ router.get(
     taskController.getMyTasks
 );
 
+router.get(
+    "/:id/status-history",
+    authMiddleware,
+    taskOwnership,
+    statusHistoryController.getByTaskId
+);
 
 /**
  * @swagger
@@ -320,6 +327,8 @@ router.get(
  *       404:
  *         description: Task not found
  */
+
+
 router.get(
     "/:id",
     authMiddleware,
@@ -457,6 +466,7 @@ router.delete(
     taskOwnership,
     taskController.deleteTask
 );
+
 
 
 export default router;

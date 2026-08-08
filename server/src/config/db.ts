@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 import logger from "./logger";
+import dns from "dns";
+
+if (process.env.NODE_ENV !== "production") {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+}
 
 const connectDB = async (): Promise<void> => {
 
@@ -12,6 +17,7 @@ const connectDB = async (): Promise<void> => {
   }
 
     await mongoose.connect(mongoURI as string);
+    
 
     logger.info(
     "MongoDB connected successfully ✅"

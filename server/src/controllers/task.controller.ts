@@ -1,6 +1,7 @@
 import taskService from "../services/task.service";
 import { Request, Response } from "express";
 import { ITaskQuery } from "../interfaces/task-query.interface";
+import { Types } from "mongoose";
 class TaskController {
 
         async createTask(req: Request, res: Response){
@@ -80,7 +81,9 @@ class TaskController {
 
             const task = await taskService.updateTask(
                 req.task ,
-                req.body
+                req.body,
+                new Types.ObjectId(req.user.id)
+
             );
 
             res.status(200).json({

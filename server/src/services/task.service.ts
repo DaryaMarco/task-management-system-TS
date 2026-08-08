@@ -3,6 +3,8 @@ import { ITask } from "../interfaces/task.interface";
 import AppError from "../utils/AppError";
 import { HydratedDocument } from "mongoose";
 import { ITaskQuery } from "../interfaces/task-query.interface";
+import statusHistoryRepository from "../repositories/status-history.repository";
+import { Types } from "mongoose";
 
 class TaskService {
 // createTask
@@ -39,13 +41,29 @@ class TaskService {
 
    async updateTask(
         task: HydratedDocument<ITask>,
-        data: Partial<ITask>
+        data: Partial<ITask>,
+        userId: Types.ObjectId
     ) {
+        const oldstatus = task.status;
 
         Object.assign(task, data);
 
-        return await taskRepository.save(task);
+       const updatedTask = await taskRepository.save(task);
 
+        if(data.status && data.status !== oldstatus){
+
+            const newtatus = data.status;
+
+            await statusHistoryRepository.create({
+                taskId : task._id,
+                from : oldstatus,
+                to : newtatus,
+                changedBy : userId,
+                changedAt : new Date()
+            });
+        }
+
+        return updatedTask;
     }
 // deleteTask
 
