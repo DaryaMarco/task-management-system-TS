@@ -1,5 +1,16 @@
 # Task Management System API 🚀
 
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-API-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![JWT](https://img.shields.io/badge/Auth-JWT-F7A81B?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
+[![Swagger](https://img.shields.io/badge/API-Documentation-85EA2D?logo=swagger&logoColor=black)](https://swagger.io/)
+[![Jest](https://img.shields.io/badge/Testing-Jest-C21325?logo=jest&logoColor=white)](https://jestjs.io/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Render](https://img.shields.io/badge/Deployed-Render-46E3B7?logo=render&logoColor=black)](https://render.com/)
+
+
 A production-ready RESTful Task Management API built with **TypeScript, Node.js, Express.js, MongoDB, Mongoose, JWT, Jest, Supertest, Swagger, Docker, and Render**.
 
 The project demonstrates professional backend development practices including **layered architecture, repository and service patterns, authentication, authorization, resource ownership, validation, testing, API documentation, containerization, and cloud deployment**.
